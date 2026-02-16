@@ -1,10 +1,19 @@
 package org.example.lunaris.dto.request;
 
 
-public class AdminRequest {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
+public class AdminRequest {
+    @NotNull
     String nome;
+    @Email
     String email;
+    @Pattern(
+            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+            message = "A senha deve ter no mínimo 8 caracteres, incluindo maiúscula, minúscula, número e caractere especial."
+    )
     String senha;
 
     public AdminRequest() {
