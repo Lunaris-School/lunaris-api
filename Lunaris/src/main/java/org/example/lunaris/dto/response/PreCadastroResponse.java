@@ -14,4 +14,28 @@ public class PreCadastroResponse {
         this.alunoCpf = alunoCpf;
         this.dataAutorizacao = dataAutorizacao;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public BigInteger getAlunoCpf() {
+        return alunoCpf;
+    }
+
+    public void setAlunoCpf(BigInteger alunoCpf) {
+        this.alunoCpf = alunoCpf;
+    }
+
+    public LocalDateTime getDataAutorizacao() {
+        return dataAutorizacao;
+    }
+
+    public void setDataAutorizacao(LocalDateTime dataAutorizacao) {
+        this.dataAutorizacao = dataAutorizacao;
+    }
 }
