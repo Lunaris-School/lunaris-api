@@ -15,7 +15,7 @@ public class Disciplina {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    @Column(name = "url_foto")
+    @Column(name = "url_photo")
     private String urlFoto;
 
     public Integer getId() {

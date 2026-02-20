@@ -1,6 +1,7 @@
 package org.example.lunaris.service;
 
-import org.example.lunaris.dto.request.DisciplinaRequest;
+import org.example.lunaris.dto.request.DisciplinaCreateRequest;
+import org.example.lunaris.dto.request.DisciplinaUpdateRequest;
 import org.example.lunaris.dto.response.DisciplinaResponse;
 import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.exception.NotFoundException;
@@ -20,7 +21,7 @@ public class DisciplinaService {
         this.disciplinaRepository = disciplinaRepository;
     }
 
-    public DisciplinaResponse cadastrarNovaDisciplina(DisciplinaRequest disciplinaRequest)
+    public DisciplinaResponse cadastrarNovaDisciplina(DisciplinaCreateRequest disciplinaRequest)
     {
         Disciplina disciplinaExistente = disciplinaRepository.findByNome(disciplinaRequest.getNome());
 
@@ -35,7 +36,7 @@ public class DisciplinaService {
         return new DisciplinaResponse(disciplinaSalva.getId(),disciplinaSalva.getNome());
 
     }
-    public DisciplinaResponse atualizar(int id, DisciplinaRequest disciplinaRequest){
+    public DisciplinaResponse atualizar(int id, DisciplinaUpdateRequest disciplinaUpdateRequest){
         Optional<Disciplina> disciplinaOptional = disciplinaRepository.findById(id);
 
         if (disciplinaOptional.isEmpty()){
@@ -43,7 +44,7 @@ public class DisciplinaService {
         }
         Disciplina disciplina = new Disciplina();
 
-        BeanUtils.copyProperties(disciplinaRequest,disciplina);
+        BeanUtils.copyProperties(disciplinaUpdateRequest,disciplina);
 
         Disciplina disciplinaSalva = disciplinaRepository.save(disciplina);
 

@@ -1,9 +1,9 @@
 package org.example.lunaris.controller;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import org.example.lunaris.contract.DisciplinaContract;
-import org.example.lunaris.dto.request.DisciplinaRequest;
+import org.example.lunaris.dto.request.DisciplinaCreateRequest;
+import org.example.lunaris.dto.request.DisciplinaUpdateRequest;
 import org.example.lunaris.dto.response.DisciplinaResponse;
 import org.example.lunaris.service.DisciplinaService;
 import org.springframework.http.HttpStatus;
@@ -23,15 +23,15 @@ public class DisciplinaController implements DisciplinaContract {
 
     @Override
     @PostMapping
-    public ResponseEntity<DisciplinaResponse> cadastrar(@Valid @RequestBody DisciplinaRequest disciplinaRequest){
+    public ResponseEntity<DisciplinaResponse> cadastrar(@Valid @RequestBody DisciplinaCreateRequest disciplinaRequest){
         DisciplinaResponse disciplinaResponse = disciplinaService.cadastrarNovaDisciplina(disciplinaRequest);
         return new ResponseEntity<>(disciplinaResponse, HttpStatus.CREATED);
     }
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<DisciplinaResponse> atualizar(@PathVariable int id, @Valid @RequestBody DisciplinaRequest disciplinaRequest){
-        DisciplinaResponse disciplinaResponse = disciplinaService.atualizar(id, disciplinaRequest);
+    public ResponseEntity<DisciplinaResponse> atualizar(@PathVariable int id, @Valid @RequestBody DisciplinaUpdateRequest disciplinaUpdateRequest){
+        DisciplinaResponse disciplinaResponse = disciplinaService.atualizar(id, disciplinaUpdateRequest);
         return new ResponseEntity<>(disciplinaResponse, HttpStatus.OK);
     }
 

@@ -5,7 +5,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.example.lunaris.dto.request.DisciplinaRequest;
+import org.example.lunaris.dto.request.DisciplinaCreateRequest;
+import org.example.lunaris.dto.request.DisciplinaUpdateRequest;
 import org.example.lunaris.dto.response.DisciplinaResponse;
 import org.springframework.http.ResponseEntity;
 
@@ -31,7 +32,7 @@ public interface DisciplinaContract {
                     content = @Content
             )
     })
-    ResponseEntity<DisciplinaResponse> cadastrar(DisciplinaRequest disciplinaRequest);
+    ResponseEntity<DisciplinaResponse> cadastrar(DisciplinaCreateRequest disciplinaRequest);
 
     @Operation(
             summary = "Atualizar disciplina",
@@ -52,7 +53,7 @@ public interface DisciplinaContract {
                     content = @Content
             )
     })
-    ResponseEntity<DisciplinaResponse> atualizar(int id, DisciplinaRequest disciplinaRequest);
+    ResponseEntity<DisciplinaResponse> atualizar(int id, DisciplinaUpdateRequest disciplinaUpdateRequest);
 
     @Operation(
             summary = "Listar disciplinas",
