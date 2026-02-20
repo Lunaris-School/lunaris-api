@@ -5,7 +5,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.example.lunaris.dto.request.AdminRequest;
+import org.example.lunaris.dto.request.AdminCreateRequest;
+import org.example.lunaris.dto.request.AdminUpdateRequest;
 import org.example.lunaris.dto.response.AdminResponse;
 import org.example.lunaris.model.Administrador;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public interface AdministradorContract {
                     content = @Content
             )
     })
-    ResponseEntity<AdminResponse> cadastrar(AdminRequest adminResquest);
+    ResponseEntity<AdminResponse> cadastrar(AdminCreateRequest adminResquest);
 
     @Operation(
             summary = "Atualizar administrador",
@@ -59,7 +60,7 @@ public interface AdministradorContract {
                     content = @Content
             )
     })
-    ResponseEntity<AdminResponse> atualizar(int id, AdminRequest adminResquest);
+    ResponseEntity<AdminResponse> atualizar(int id, AdminUpdateRequest adminUpdateRequest);
 
     @Operation(
             summary = "Lista os administradores",

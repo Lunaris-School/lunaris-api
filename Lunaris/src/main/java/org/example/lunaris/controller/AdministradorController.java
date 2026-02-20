@@ -1,15 +1,15 @@
 package org.example.lunaris.controller;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.example.lunaris.dto.request.AdminUpdateRequest;
+import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.example.lunaris.contract.AdministradorContract;
-import org.example.lunaris.dto.request.AdminRequest;
+import org.example.lunaris.dto.request.AdminCreateRequest;
 import org.example.lunaris.dto.response.AdminResponse;
 import org.example.lunaris.model.Administrador;
 import org.example.lunaris.service.AdministradorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,15 +24,15 @@ public class AdministradorController implements AdministradorContract {
 
     @Override
     @PostMapping
-    public ResponseEntity<AdminResponse> cadastrar(@Valid @RequestBody AdminRequest adminRequest){
+    public ResponseEntity<AdminResponse> cadastrar(@Valid @RequestBody AdminCreateRequest adminRequest){
         AdminResponse adminResponse = administradorService.cadastrar(adminRequest);
         return new ResponseEntity<>(adminResponse, HttpStatus.CREATED);
     }
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<AdminResponse> atualizar(@PathVariable int id, @Valid @RequestBody AdminRequest adminResquest){
-        AdminResponse adminResponse = administradorService.atualizar(id, adminResquest);
+    public ResponseEntity<AdminResponse> atualizar(@PathVariable int id, @Valid @RequestBody AdminUpdateRequest adminUpdateRequest){
+        AdminResponse adminResponse = administradorService.atualizar(id, adminUpdateRequest);
         return new ResponseEntity<>(adminResponse, HttpStatus.OK);
     }
 

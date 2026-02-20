@@ -1,9 +1,10 @@
 package org.example.lunaris.service;
 
 import org.example.lunaris.Enum.RoleEnum;
+import org.example.lunaris.dto.request.AdminUpdateRequest;
 import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.exception.NotFoundException;
-import org.example.lunaris.dto.request.AdminRequest;
+import org.example.lunaris.dto.request.AdminCreateRequest;
 import org.example.lunaris.dto.response.AdminResponse;
 import org.example.lunaris.model.Administrador;
 import org.example.lunaris.model.Role;
@@ -28,10 +29,7 @@ public class AdministradorService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public AdminResponse cadastrar(AdminRequest adminResquest){
-        System.out.println("Nome: " + adminResquest.getNome());
-        System.out.println("Email: " + adminResquest.getEmail());
-        System.out.println("Senha: " + adminResquest.getSenha());
+    public AdminResponse cadastrar(AdminCreateRequest adminResquest){
 
         Administrador administradorExistente = administradorRepository.findByEmail(adminResquest.getEmail());
 
@@ -51,7 +49,7 @@ public class AdministradorService {
         return new AdminResponse(adminSalvo.getId(),adminSalvo.getNome());
 
     }
-    public AdminResponse atualizar(int id, AdminRequest adminResquest){
+    public AdminResponse atualizar(int id, AdminUpdateRequest adminUpdateRequest){
         Optional<Administrador> adminOptional = administradorRepository.findById(id);
 
         if (adminOptional.isEmpty()){
@@ -59,10 +57,10 @@ public class AdministradorService {
         }
         Administrador admin = new Administrador();
 
-        if (adminResquest.getSenha() != null){
-            adminResquest.setSenha(passwordEncoder.encode(adminResquest.getSenha()));
+        if (adminUpdateRequest.getSenha() != null){
+            adminUpdateRequest.setSenha(passwordEncoder.encode(adminUpdateRequest.getSenha()));
         }
-        BeanUtils.copyProperties(adminResquest,admin);
+        BeanUtils.copyProperties(adminUpdateRequest,admin);
 
         Administrador adminSalvo = administradorRepository.save(admin);
 
