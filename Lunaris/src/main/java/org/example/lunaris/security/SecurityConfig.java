@@ -19,9 +19,9 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                       .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/disciplina/**").hasRole("ADMIN")
-                        .requestMatchers("/disciplina/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/disciplina/**").hasRole("ADMIN")
+                        .requestMatchers("/api/pre-cadastro/**").hasRole("ADMIN")
                         .requestMatchers("/aluno/**").hasAnyRole("BASIC")
                 )
                 .httpBasic(Customizer.withDefaults());

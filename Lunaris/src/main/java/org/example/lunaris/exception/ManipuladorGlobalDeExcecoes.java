@@ -14,4 +14,9 @@ public class ManipuladorGlobalDeExcecoes {
         ErrorDTO errorDTO = new ErrorDTO(HttpStatus.NOT_FOUND.value(), notFoundException.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDTO);
     }
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<ErrorDTO> duplicateException(DuplicateException duplicateException) {
+        ErrorDTO errorDTO = new ErrorDTO(HttpStatus.CONFLICT.value(), duplicateException.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDTO);
+    }
 }
