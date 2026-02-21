@@ -1,4 +1,4 @@
-package model;
+package org.example.lunaris.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
