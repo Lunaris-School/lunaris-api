@@ -1,7 +1,7 @@
 package org.example.lunaris.service;
 
-import org.example.lunaris.dto.request.PreCadastroRequest;
-import org.example.lunaris.dto.response.PreCadastroResponse;
+import org.example.lunaris.dto.request.PreCadastroRequestDTO;
+import org.example.lunaris.dto.response.PreCadastroResponseDTO;
 import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.model.PreCadastro;
 import org.example.lunaris.repository.PreCadastroRepository;
@@ -19,7 +19,7 @@ public class PreCadastroService {
         this.preCadastroRepository = preCadastroRepository;
     }
 
-    public PreCadastroResponse adicionar(PreCadastroRequest preCadastroRequest){
+    public PreCadastroResponseDTO adicionar(PreCadastroRequestDTO preCadastroRequest){
         Optional<PreCadastro> preCadastroOptional = preCadastroRepository.findByAlunoCpf(preCadastroRequest.getAlunoCpf());
 
         if (preCadastroOptional.isPresent()){
@@ -32,6 +32,6 @@ public class PreCadastroService {
 
         PreCadastro preCadastroSalvo = preCadastroRepository.save(preCadastro);
 
-        return new PreCadastroResponse(preCadastroSalvo.getId(),preCadastro.getAlunoCpf(),preCadastro.getDataAutorizacao());
+        return new PreCadastroResponseDTO(preCadastroSalvo.getId(),preCadastro.getAlunoCpf(),preCadastro.getDataAutorizacao());
     }
 }
