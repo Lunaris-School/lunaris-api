@@ -1,9 +1,9 @@
 package org.example.lunaris.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.example.lunaris.dto.request.NotasRequestDTO;
 import org.example.lunaris.dto.response.NotasResponseDTO;
+import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Boletim;
 import org.example.lunaris.model.Notas;
 import org.example.lunaris.repository.BoletimRepository;
@@ -19,10 +19,10 @@ public class NotasService {
     private final NotasRepository notasRepository;
     private final BoletimRepository boletimRepository;
 
-    public NotasResponseDTO lançarNota(NotasRequestDTO dto) {
+    public NotasResponseDTO lancarNota(NotasRequestDTO dto) {
 
         Boletim boletim = boletimRepository.findById(dto.getBoletimId())
-                .orElseThrow(() -> new EntityNotFoundException("Boletim não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Boletim não encontrado"));
 
         Notas nota = new Notas();
         nota.setBoletim(boletim);

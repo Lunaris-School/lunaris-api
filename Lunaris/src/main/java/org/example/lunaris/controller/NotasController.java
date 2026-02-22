@@ -1,9 +1,7 @@
 package org.example.lunaris.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.example.lunaris.contract.NotasContract;
 import org.example.lunaris.dto.request.NotasRequestDTO;
 import org.example.lunaris.dto.response.NotasResponseDTO;
 import org.example.lunaris.service.NotasService;
@@ -15,18 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/notas")
-@RequiredArgsConstructor
-@Tag(name = "Notas Controller", description = "Gerenciamento de notas")
-public class NotasController {
+public class NotasController implements NotasContract {
 
     private final NotasService notasService;
 
+    public NotasController(NotasService notasService) {
+        this.notasService = notasService;
+    }
+
+    @Override
     @PostMapping
-    @Operation(summary = "Lançar nota no boletim")
-    public ResponseEntity<NotasResponseDTO> lançarNota(
+    public ResponseEntity<NotasResponseDTO> lancarNota(
             @RequestBody @Valid NotasRequestDTO dto) {
 
-        return ResponseEntity.ok(notasService.lançarNota(dto));
+        return ResponseEntity.ok(notasService.lancarNota(dto));
     }
 }
 

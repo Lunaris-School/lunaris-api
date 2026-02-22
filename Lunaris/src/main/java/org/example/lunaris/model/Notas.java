@@ -28,4 +28,44 @@ public class Notas {
 
     @Column(name = "data_lancamento", nullable = false)
     private LocalDate dataLancamento;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Boletim getBoletim() {
+        return boletim;
+    }
+
+    public void setBoletim(Boletim boletim) {
+        this.boletim = boletim;
+    }
+
+    public Integer getValorNota() {
+        return valorNota;
+    }
+
+    public void setValorNota(Integer valorNota) {
+        this.valorNota = valorNota;
+    }
+
+    public String getTipoAvaliacao() {
+        return tipoAvaliacao;
+    }
+
+    public void setTipoAvaliacao(String tipoAvaliacao) {
+        this.tipoAvaliacao = tipoAvaliacao;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
 }
