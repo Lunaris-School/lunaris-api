@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.example.lunaris.dto.request.TurmaRequestDTO;
 import org.example.lunaris.dto.response.TurmaResponseDTO;
+import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.model.Professor;
 import org.example.lunaris.model.Turma;
 import org.example.lunaris.model.TurmaProfessor;
@@ -24,15 +25,15 @@ public class TurmaService {
 
     public List<TurmaResponseDTO> buscarPorTurma(Integer idProfessor) {
 
+        Professor professor = professorRepository.findById(idProfessor)
+                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
+
         List<TurmaProfessor> vinculos =
-                turmaProfessorRepository.findByProfessorId(idProfessor);
+                turmaProfessorRepository.findByProfessor(professor);
 
         return vinculos.stream()
                 .map(v -> {
-                    Turma turma = turmaRepository.findById(v.getTurmaId())
-                            .orElseThrow();
-
-                    Professor professor = professorRepository.findById(idProfessor)
+                    Turma turma = turmaRepository.findById(v.getTurma().getId())
                             .orElseThrow();
 
                     return new TurmaResponseDTO(
@@ -48,6 +49,11 @@ public class TurmaService {
 
     public TurmaResponseDTO salvarTurma(TurmaRequestDTO dto) {
 
+        Turma turmaExistente = turmaRepository.findByNome(dto.getNome());
+        if (turmaExistente != null){
+            throw new DuplicateException("Turma já foi cadastrada");
+        }
+
         Professor professor = professorRepository.findById(dto.getProfessorId())
                 .orElseThrow(() ->
                         new EntityNotFoundException("Professor não encontrado"));
@@ -59,9 +65,8 @@ public class TurmaService {
         Turma turmaSalva = turmaRepository.save(turma);
 
         TurmaProfessor vinculo = new TurmaProfessor();
-        vinculo.setTurmaId(turmaSalva.getId());
-        vinculo.setProfessorId(dto.getProfessorId());
-        vinculo.setDisciplinaId(dto.getDisciplinaId());
+        vinculo.setTurma(turmaSalva);
+        vinculo.setProfessor(professor);
 
         turmaProfessorRepository.save(vinculo);
 
@@ -79,6 +84,8 @@ public class TurmaService {
         Turma turma = turmaRepository.findById(id)
                 .orElseThrow(() ->
                         new EntityNotFoundException("Turma não encontrada"));
+
+        turmaProfessorRepository.deleteByTurma(id);
 
         turmaRepository.delete(turma);
     }

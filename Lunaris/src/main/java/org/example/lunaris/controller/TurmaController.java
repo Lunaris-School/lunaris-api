@@ -1,14 +1,8 @@
 package org.example.lunaris.controller;
 
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.example.lunaris.contract.TurmaContract;
 import org.example.lunaris.dto.request.TurmaRequestDTO;
 import org.example.lunaris.dto.response.TurmaResponseDTO;
 import org.example.lunaris.service.TurmaService;
@@ -18,23 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Tag(name = "Turma Controller", description = "Gerenciamento das turmas")
 @RequestMapping("/v1/turma")
-@RequiredArgsConstructor
-public class TurmaController {
+public class TurmaController implements TurmaContract {
 
     private final TurmaService turmaService;
 
+    public TurmaController(TurmaService turmaService) {
+        this.turmaService = turmaService;
+    }
 
+    @Override
     @GetMapping("/listarTurmaPorProfessor/{id}")
-    @Operation(summary = "Retorna as turmas de um professor",
-            description = "Lista todas as turmas vinculadas a um professor")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Lista de turmas retornada com sucesso",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TurmaResponseDTO.class))),
-            @ApiResponse(responseCode = "204", description = "Nenhuma turma encontrada")
-    })
     public ResponseEntity<List<TurmaResponseDTO>> buscarPorTurma(@PathVariable Integer id) {
 
         List<TurmaResponseDTO> lista = turmaService.buscarPorTurma(id);
@@ -46,18 +34,16 @@ public class TurmaController {
         return ResponseEntity.ok(lista);
     }
 
+    @Override
     @PostMapping
-    @Operation(summary = "Criar uma nova turma",
-            description = "Cria uma nova turma no sistema")
     public ResponseEntity<TurmaResponseDTO> salvarTurma(
             @RequestBody @Valid TurmaRequestDTO requestDTO) {
 
         return ResponseEntity.ok(turmaService.salvarTurma(requestDTO));
     }
 
+    @Override
     @DeleteMapping("/deletar/{id}")
-    @Operation(summary = "Deleta uma turma",
-            description = "Remove uma turma do sistema pelo ID")
     public ResponseEntity<Void> deletarTurma(@PathVariable Integer id) {
 
         turmaService.deletarTurma(id);

@@ -14,12 +14,44 @@ public class TurmaProfessor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "turma_id", nullable = false)
-    private Integer turmaId;
+    @ManyToOne
+    @JoinColumn(name = "turma_id")
+    private Turma turma;
 
-    @Column(name = "disciplina_id", nullable = false)
-    private Integer disciplinaId;
+    @ManyToOne
+    @JoinColumn(name = "professor_cpf")
+    private Professor professor;
 
-    @Column(name = "professor_id", nullable = false)
-    private Integer professorId;
+    public TurmaProfessor() {
+
+    }
+    public TurmaProfessor(Integer id, Turma turma, Professor professor) {
+        this.id = id;
+        this.turma = turma;
+        this.professor = professor;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
 }
