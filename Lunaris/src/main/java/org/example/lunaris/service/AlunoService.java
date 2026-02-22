@@ -1,0 +1,106 @@
+package org.example.lunaris.service;
+
+
+import jakarta.transaction.Transactional;
+import org.example.lunaris.Enum.RoleEnum;
+import org.example.lunaris.dto.request.AlunoRequestDTO;
+import org.example.lunaris.dto.response.AlunoResponseDTO;
+import org.example.lunaris.exception.NotFoundException;
+import org.example.lunaris.model.Aluno;
+import org.example.lunaris.model.Genero;
+import org.example.lunaris.model.Role;
+import org.example.lunaris.repository.AlunoRepository;
+import org.example.lunaris.repository.GeneroRepository;
+import org.example.lunaris.repository.RoleRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class AlunoService {
+    private final AlunoRepository repository;
+    private final GeneroRepository generoRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+
+
+    public AlunoService(AlunoRepository repository, GeneroRepository generoRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.repository = repository;
+        this.generoRepository = generoRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+    private Aluno fromDTO(AlunoRequestDTO dto){
+        Aluno aluno = new Aluno();
+        aluno.setNome(dto.getNome());
+        aluno.setEmail(dto.getEmail());
+        aluno.setSenha(passwordEncoder.encode(dto.getSenha()));
+        aluno.setMatricula(dto.getMatricula());
+        aluno.setGeneroId(dto.getGeneroId());
+
+        return aluno;
+    }
+
+    private AlunoResponseDTO toDTO(Aluno aluno){
+        return new AlunoResponseDTO(
+                aluno.getCpf(),
+                aluno.getNome(),
+                aluno.getMatricula(),
+                aluno.getEmail(),
+                aluno.getRole().getId(),
+                aluno.getGeneroId()
+        );
+    }
+
+
+    @Transactional
+    public AlunoResponseDTO criarAluno(AlunoRequestDTO dto){
+        Genero genero = generoRepository.buscaPorId(dto.getGeneroId());
+        if(genero == null){
+            throw new NotFoundException("Genero não encontrado");
+        }
+
+        Aluno aluno = fromDTO(dto);
+
+        Role alunoRole = roleRepository.findByNome(RoleEnum.ALUNO.name());
+
+        aluno.setRole(alunoRole);
+        return toDTO(repository.save(aluno));
+    }
+
+    @Transactional
+    public AlunoResponseDTO atualizarAluno(Long cpf, AlunoRequestDTO dto){
+        Aluno aluno = repository.buscaPorCpf(cpf);
+        if(aluno == null){
+            throw new NotFoundException("Aluno não encontrado");
+        }
+
+        if(dto.getNome() != null) aluno.setNome(dto.getNome());
+        if(dto.getEmail() != null) aluno.setEmail(dto.getEmail());
+        if(dto.getSenha() != null) aluno.setSenha(dto.getSenha());
+        if(dto.getMatricula() != null) aluno.setMatricula(dto.getMatricula());
+        if(dto.getGeneroId() != null) {
+            Genero genero = generoRepository.buscaPorId(dto.getGeneroId());
+            if(genero == null){
+                throw new NotFoundException("Genero não encontrado");
+            }
+            aluno.setGeneroId(dto.getGeneroId());
+        }
+
+        return toDTO(repository.save(aluno));
+    }
+
+    public AlunoResponseDTO buscarAluno(Long cpf){
+        Aluno aluno = repository.buscaPorCpf(cpf);
+        if(aluno == null){
+            throw new NotFoundException("Aluno não encontrado");
+        }
+        return toDTO(aluno);
+    }
+
+    public List<AlunoResponseDTO> listarAlunos(){
+        return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+}

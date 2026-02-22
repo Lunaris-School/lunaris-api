@@ -2,8 +2,8 @@ package org.example.lunaris.controller;
 
 import jakarta.validation.Valid;
 import org.example.lunaris.contract.PreCadastroCrontract;
-import org.example.lunaris.dto.request.PreCadastroRequest;
-import org.example.lunaris.dto.response.PreCadastroResponse;
+import org.example.lunaris.dto.request.PreCadastroRequestDTO;
+import org.example.lunaris.dto.response.PreCadastroResponseDTO;
 import org.example.lunaris.service.PreCadastroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +22,8 @@ public class PreCadastroController implements PreCadastroCrontract {
     }
     @Override
     @PostMapping
-    public ResponseEntity<PreCadastroResponse> cadastrar(@Valid @RequestBody PreCadastroRequest preCadastroRequest){
-        PreCadastroResponse preCadastroResponse = preCadastroService.adicionar(preCadastroRequest);
+    public ResponseEntity<PreCadastroResponseDTO> cadastrar(@Valid @RequestBody PreCadastroRequestDTO preCadastroRequest){
+        PreCadastroResponseDTO preCadastroResponse = preCadastroService.adicionar(preCadastroRequest);
         return new ResponseEntity<>(preCadastroResponse, HttpStatus.CREATED);
     }
 

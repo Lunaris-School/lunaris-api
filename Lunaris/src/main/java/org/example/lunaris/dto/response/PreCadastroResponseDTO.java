@@ -3,13 +3,14 @@ package org.example.lunaris.dto.response;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-public class PreCadastroResponse {
+public class PreCadastroResponseDTO {
     Integer id;
     BigInteger alunoCpf;
     LocalDateTime dataAutorizacao;
-    public PreCadastroResponse() {
+
+    public PreCadastroResponseDTO() {
     }
-    public PreCadastroResponse(Integer id, BigInteger alunoCpf, LocalDateTime dataAutorizacao) {
+    public PreCadastroResponseDTO(Integer id, BigInteger alunoCpf, LocalDateTime dataAutorizacao) {
         this.id = id;
         this.alunoCpf = alunoCpf;
         this.dataAutorizacao = dataAutorizacao;

@@ -1,8 +1,8 @@
 package org.example.lunaris.service;
 
-import org.example.lunaris.dto.request.DisciplinaCreateRequest;
-import org.example.lunaris.dto.request.DisciplinaUpdateRequest;
-import org.example.lunaris.dto.response.DisciplinaResponse;
+import org.example.lunaris.dto.request.DisciplinaCreateRequestDTO;
+import org.example.lunaris.dto.request.DisciplinaUpdateRequestDTO;
+import org.example.lunaris.dto.response.DisciplinaResponseDTO;
 import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Disciplina;
@@ -21,7 +21,7 @@ public class DisciplinaService {
         this.disciplinaRepository = disciplinaRepository;
     }
 
-    public DisciplinaResponse cadastrarNovaDisciplina(DisciplinaCreateRequest disciplinaRequest)
+    public DisciplinaResponseDTO cadastrarNovaDisciplina(DisciplinaCreateRequestDTO disciplinaRequest)
     {
         Disciplina disciplinaExistente = disciplinaRepository.findByNome(disciplinaRequest.getNome());
 
@@ -33,10 +33,10 @@ public class DisciplinaService {
         BeanUtils.copyProperties(disciplinaRequest,disciplina);
 
         Disciplina disciplinaSalva = disciplinaRepository.save(disciplina);
-        return new DisciplinaResponse(disciplinaSalva.getId(),disciplinaSalva.getNome());
+        return new DisciplinaResponseDTO(disciplinaSalva.getId(),disciplinaSalva.getNome());
 
     }
-    public DisciplinaResponse atualizar(int id, DisciplinaUpdateRequest disciplinaUpdateRequest){
+    public DisciplinaResponseDTO atualizar(int id, DisciplinaUpdateRequestDTO disciplinaUpdateRequest){
         Optional<Disciplina> disciplinaOptional = disciplinaRepository.findById(id);
 
         if (disciplinaOptional.isEmpty()){
@@ -48,11 +48,11 @@ public class DisciplinaService {
 
         Disciplina disciplinaSalva = disciplinaRepository.save(disciplina);
 
-        return new DisciplinaResponse(disciplinaSalva.getId(),disciplinaSalva.getNome());
+        return new DisciplinaResponseDTO(disciplinaSalva.getId(),disciplinaSalva.getNome());
     }
-    public List<DisciplinaResponse> listarDisciplinas(){
+    public List<DisciplinaResponseDTO> listarDisciplinas(){
         return disciplinaRepository.findAll().stream().map(disciplina ->
-                new DisciplinaResponse(disciplina.getId(),disciplina.getNome())).toList();
+                new DisciplinaResponseDTO(disciplina.getId(),disciplina.getNome())).toList();
     }
 
 }

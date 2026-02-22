@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public class AdminCreateRequest {
+public class AdminCreateRequestDTO {
     @NotNull
     String nome;
     @Email
@@ -16,10 +16,10 @@ public class AdminCreateRequest {
     )
     String senha;
 
-    public AdminCreateRequest() {
+    public AdminCreateRequestDTO() {
     }
 
-    public AdminCreateRequest(String nome, String email, String senha) {
+    public AdminCreateRequestDTO(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;

@@ -1,16 +1,18 @@
 package org.example.lunaris.dto.response;
 
+import lombok.*;
 
-public class AdminResponse {
-    Integer id;
-    String nome;
+@Getter
+@Setter
+public class GeneroResponseDTO {
+    private Integer id;
+    private String nome;
 
-    public AdminResponse() {
-    }
-    public AdminResponse(Integer id, String nome) {
+    public GeneroResponseDTO(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }
+    public GeneroResponseDTO() {}
 
     public Integer getId() {
         return id;

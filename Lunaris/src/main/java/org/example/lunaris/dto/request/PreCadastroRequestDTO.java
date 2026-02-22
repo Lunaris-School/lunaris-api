@@ -1,19 +1,17 @@
 package org.example.lunaris.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigInteger;
 
 
-public class PreCadastroRequest {
+public class PreCadastroRequestDTO {
     @NotNull
     BigInteger alunoCpf;
 
-    public PreCadastroRequest() {
+    public PreCadastroRequestDTO() {
     }
-    public PreCadastroRequest(BigInteger alunoCpf) {
+    public PreCadastroRequestDTO(BigInteger alunoCpf) {
         this.alunoCpf = alunoCpf;
     }
 

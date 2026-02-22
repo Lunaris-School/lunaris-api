@@ -5,10 +5,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.example.lunaris.dto.request.PreCadastroRequest;
-import org.example.lunaris.dto.response.PreCadastroResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.lunaris.dto.request.PreCadastroRequestDTO;
+import org.example.lunaris.dto.response.PreCadastroResponseDTO;
 import org.springframework.http.ResponseEntity;
-
+@Tag(name = "Pré-Cadastro Controller", description = "Gerenciamento de pré-cadastros")
 public interface PreCadastroCrontract {
     @Operation(
             summary = "Adicionar um noo pre cadastro",
@@ -20,7 +21,7 @@ public interface PreCadastroCrontract {
                     description = "Pre cadastro realizado com sucesso",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = PreCadastroResponse.class)
+                            schema = @Schema(implementation = PreCadastroResponseDTO.class)
                     )
             ),
             @ApiResponse(
@@ -34,5 +35,5 @@ public interface PreCadastroCrontract {
                     content = @Content
             )
     })
-    ResponseEntity<PreCadastroResponse> cadastrar(PreCadastroRequest preCadastroRequest);
+    ResponseEntity<PreCadastroResponseDTO> cadastrar(PreCadastroRequestDTO preCadastroRequest);
 }

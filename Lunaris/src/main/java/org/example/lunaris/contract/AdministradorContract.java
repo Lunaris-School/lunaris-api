@@ -5,14 +5,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.example.lunaris.dto.request.AdminCreateRequest;
-import org.example.lunaris.dto.request.AdminUpdateRequest;
-import org.example.lunaris.dto.response.AdminResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.lunaris.dto.request.AdminCreateRequestDTO;
+import org.example.lunaris.dto.request.AdminUpdateRequestDTO;
+import org.example.lunaris.dto.response.AdminResponseDTO;
 import org.example.lunaris.model.Administrador;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-
+@Tag(name = "Administrador Controller", description = "Gerenciamento de administradores")
 public interface AdministradorContract {
 
     @Operation(
@@ -25,7 +26,7 @@ public interface AdministradorContract {
                     description = "Administrador cadastrado com sucesso",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = AdminResponse.class)
+                            schema = @Schema(implementation = AdminResponseDTO.class)
                     )
             ),
             @ApiResponse(
@@ -39,7 +40,7 @@ public interface AdministradorContract {
                     content = @Content
             )
     })
-    ResponseEntity<AdminResponse> cadastrar(AdminCreateRequest adminResquest);
+    ResponseEntity<AdminResponseDTO> cadastrar(AdminCreateRequestDTO adminResquest);
 
     @Operation(
             summary = "Atualizar administrador",
@@ -51,7 +52,7 @@ public interface AdministradorContract {
                     description = "Administrador atualizado com sucesso",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = AdminResponse.class)
+                            schema = @Schema(implementation = AdminResponseDTO.class)
                     )
             ),
             @ApiResponse(
@@ -60,7 +61,7 @@ public interface AdministradorContract {
                     content = @Content
             )
     })
-    ResponseEntity<AdminResponse> atualizar(int id, AdminUpdateRequest adminUpdateRequest);
+    ResponseEntity<AdminResponseDTO> atualizar(int id, AdminUpdateRequestDTO adminUpdateRequest);
 
     @Operation(
             summary = "Lista os administradores",
@@ -72,7 +73,7 @@ public interface AdministradorContract {
                     description = "Administradores retornados com sucesso",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = AdminResponse.class)
+                            schema = @Schema(implementation = AdminResponseDTO.class)
                     )
             ),
             @ApiResponse(
@@ -81,7 +82,7 @@ public interface AdministradorContract {
                     content = @Content
             )
     })
-    ResponseEntity<List<AdminResponse>> listarAdmins();
+    ResponseEntity<List<AdminResponseDTO>> listarAdmins();
 
     @Operation(
             summary = "Busca um administrador",

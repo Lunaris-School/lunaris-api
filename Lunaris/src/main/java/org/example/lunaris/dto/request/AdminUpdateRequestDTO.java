@@ -3,7 +3,7 @@ package org.example.lunaris.dto.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
-public class AdminUpdateRequest {
+public class AdminUpdateRequestDTO {
 
     String nome;
     @Email
@@ -14,10 +14,10 @@ public class AdminUpdateRequest {
     )
     String senha;
 
-    public AdminUpdateRequest() {
+    public AdminUpdateRequestDTO() {
     }
 
-    public AdminUpdateRequest(String nome, String email, String senha) {
+    public AdminUpdateRequestDTO(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
