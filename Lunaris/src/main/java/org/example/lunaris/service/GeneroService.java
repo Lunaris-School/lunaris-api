@@ -1,10 +1,11 @@
 package org.example.lunaris.service;
 
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.example.lunaris.dto.request.GeneroRequestDTO;
 import org.example.lunaris.dto.response.GeneroResponseDTO;
+import org.example.lunaris.exception.DuplicateException;
+import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Genero;
 import org.example.lunaris.repository.GeneroRepository;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,10 @@ public class GeneroService {
 
     @Transactional
     public GeneroResponseDTO criar(GeneroRequestDTO dto){
+        Genero generoExistente = repository.findByNome(dto.getNome());
+        if (generoExistente != null){
+            throw new DuplicateException("Genero já foi cadastrada");
+        }
         Genero genero = fromDTO(dto);
         return toDTO(repository.save(genero));
     }
@@ -46,7 +51,7 @@ public class GeneroService {
     public GeneroResponseDTO atualizar(Integer id, GeneroRequestDTO dto){
 
         Genero genero = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Genero não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Genero não encontrado"));
 
         if(dto.getNome() != null){
             genero.setNome(dto.getNome());

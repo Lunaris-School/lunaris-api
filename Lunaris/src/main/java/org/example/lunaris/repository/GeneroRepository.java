@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GeneroRepository extends JpaRepository<Genero, Integer> {
-    @Query(value = "SELECT * FROM genero WHERE id = :id", nativeQuery = true)
+    @Query("""
+          SELECT g FROM Genero g WHERE g.id = :id
+          """)
     Genero buscaPorId(@Param("id") Integer id);
+
+    Genero findByNome(String nome);
 }

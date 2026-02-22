@@ -4,8 +4,6 @@ import lombok.*;
 
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class GeneroResponseDTO {
     private Integer id;
     private String nome;

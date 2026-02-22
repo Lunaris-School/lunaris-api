@@ -1,6 +1,7 @@
 package org.example.lunaris.controller;
 
 
+import org.example.lunaris.contract.GeneroContract;
 import org.example.lunaris.dto.request.GeneroRequestDTO;
 import org.example.lunaris.dto.response.GeneroResponseDTO;
 import org.example.lunaris.service.GeneroService;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/genero")
-public class GeneroController {
+public class GeneroController implements GeneroContract {
 
     private final GeneroService service;
 
@@ -19,16 +20,19 @@ public class GeneroController {
         this.service = service;
     }
 
+    @Override
     @GetMapping("/listar")
     public ResponseEntity<List<GeneroResponseDTO>> listar(){
         return ResponseEntity.ok(service.listar());
     }
 
+    @Override
     @PostMapping("/inserir")
     public ResponseEntity<GeneroResponseDTO> inserir(@RequestBody GeneroRequestDTO dto){
         return ResponseEntity.ok(service.criar(dto));
     }
 
+    @Override
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<GeneroResponseDTO> atualizar(@PathVariable Integer id,
                                                        @RequestBody GeneroRequestDTO dto){
