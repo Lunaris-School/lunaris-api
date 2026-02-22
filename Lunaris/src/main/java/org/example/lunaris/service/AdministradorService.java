@@ -1,11 +1,11 @@
 package org.example.lunaris.service;
 
 import org.example.lunaris.Enum.RoleEnum;
-import org.example.lunaris.dto.request.AdminUpdateRequest;
+import org.example.lunaris.dto.request.AdminUpdateRequestDTO;
 import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.exception.NotFoundException;
-import org.example.lunaris.dto.request.AdminCreateRequest;
-import org.example.lunaris.dto.response.AdminResponse;
+import org.example.lunaris.dto.request.AdminCreateRequestDTO;
+import org.example.lunaris.dto.response.AdminResponseDTO;
 import org.example.lunaris.model.Administrador;
 import org.example.lunaris.model.Role;
 import org.example.lunaris.repository.AdministradorRepository;
@@ -29,7 +29,7 @@ public class AdministradorService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public AdminResponse cadastrar(AdminCreateRequest adminResquest){
+    public AdminResponseDTO cadastrar(AdminCreateRequestDTO adminResquest){
 
         Administrador administradorExistente = administradorRepository.findByEmail(adminResquest.getEmail());
 
@@ -46,10 +46,10 @@ public class AdministradorService {
         admin.setRole(adminRole);
 
         Administrador adminSalvo = administradorRepository.save(admin);
-        return new AdminResponse(adminSalvo.getId(),adminSalvo.getNome());
+        return new AdminResponseDTO(adminSalvo.getId(),adminSalvo.getNome());
 
     }
-    public AdminResponse atualizar(int id, AdminUpdateRequest adminUpdateRequest){
+    public AdminResponseDTO atualizar(int id, AdminUpdateRequestDTO adminUpdateRequest){
         Optional<Administrador> adminOptional = administradorRepository.findById(id);
 
         if (adminOptional.isEmpty()){
@@ -64,11 +64,11 @@ public class AdministradorService {
 
         Administrador adminSalvo = administradorRepository.save(admin);
 
-        return new AdminResponse(adminSalvo.getId(),adminSalvo.getNome());
+        return new AdminResponseDTO(adminSalvo.getId(),adminSalvo.getNome());
     }
-    public List<AdminResponse> listarAdmins(){
+    public List<AdminResponseDTO> listarAdmins(){
         return administradorRepository.findAll().stream().map(administrador ->
-                new AdminResponse(administrador.getId(),administrador.getNome())).toList();
+                new AdminResponseDTO(administrador.getId(),administrador.getNome())).toList();
     }
 
     public Administrador getById(Integer id){

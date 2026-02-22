@@ -1,13 +1,13 @@
 package org.example.lunaris.dto.response;
 
 
-public class AdminResponse {
+public class AdminResponseDTO {
     Integer id;
     String nome;
 
-    public AdminResponse() {
+    public AdminResponseDTO() {
     }
-    public AdminResponse(Integer id, String nome) {
+    public AdminResponseDTO(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }
