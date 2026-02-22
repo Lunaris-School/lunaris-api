@@ -1,10 +1,10 @@
 package org.example.lunaris.service;
 
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.example.lunaris.dto.request.ObservacaoRequestDTO;
 import org.example.lunaris.dto.response.ObservacaoResponseDTO;
+import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Observacao;
 import org.example.lunaris.repository.ObservacaoRepository;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class ObservacaoService {
     public ObservacaoResponseDTO atualizar(Integer id, ObservacaoRequestDTO dto){
 
         Observacao obs = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Observação não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Observação não encontrada"));
 
         if(dto.getIdAluno() != null){
             obs.setIdAluno(dto.getIdAluno());
