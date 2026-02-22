@@ -1,17 +1,9 @@
 package org.example.lunaris.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "aluno")
-@Getter
-@Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class Aluno {
 
     @Id
@@ -28,20 +20,25 @@ public class Aluno {
     @Column(length = 500)
     private String senha;
 
-    @Column(name = "role_id")
-    private Integer roleId;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Column(name = "genero_id")
     private Integer generoId;
 
+    @ManyToOne
+    @JoinColumn(name = "turma_id")
+    private Turma turma;
+
     public Aluno() {}
-    public Aluno(Long cpf, String nome, Long matricula, String email, String senha, Integer roleId, Integer generoId) {
+    public Aluno(Long cpf, String nome, Long matricula, String email, String senha, Role role, Integer generoId) {
         this.cpf = cpf;
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
         this.senha = senha;
-        this.roleId = roleId;
+        this.role = role;
         this.generoId = generoId;
     }
 
@@ -85,12 +82,12 @@ public class Aluno {
         this.senha = senha;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setRole( Role Role) {
+        this.role = role;
     }
 
     public Integer getGeneroId() {
