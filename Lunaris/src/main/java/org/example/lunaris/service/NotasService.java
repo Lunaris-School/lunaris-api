@@ -1,6 +1,5 @@
 package org.example.lunaris.service;
 
-import lombok.RequiredArgsConstructor;
 import org.example.lunaris.dto.request.NotasRequestDTO;
 import org.example.lunaris.dto.response.NotasResponseDTO;
 import org.example.lunaris.exception.NotFoundException;
@@ -13,11 +12,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class NotasService {
 
     private final NotasRepository notasRepository;
     private final BoletimRepository boletimRepository;
+
+    public NotasService(NotasRepository notasRepository, BoletimRepository boletimRepository) {
+        this.notasRepository = notasRepository;
+        this.boletimRepository = boletimRepository;
+    }
 
     public NotasResponseDTO lancarNota(NotasRequestDTO dto) {
 

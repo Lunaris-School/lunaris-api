@@ -35,7 +35,7 @@ public class SecurityConfig {
         authorize.requestMatchers("/api/admin/**").hasRole("ADMIN");
         authorize.requestMatchers("/api/disciplina/**").hasRole("ADMIN");
         authorize.requestMatchers("/api/pre-cadastro/**").hasRole("ADMIN");
-        authorize.requestMatchers("api/professor/deletar/{id}").hasRole("ADMIN");
+        authorize.requestMatchers("/api/professor/deletar/{id}").hasRole("ADMIN");
         authorize.requestMatchers("/api/professor").hasRole("ADMIN");
         authorize.requestMatchers("/v1/turma").hasRole("ADMIN");
         authorize.requestMatchers("/v1/turma/deletar/").hasRole("ADMIN");

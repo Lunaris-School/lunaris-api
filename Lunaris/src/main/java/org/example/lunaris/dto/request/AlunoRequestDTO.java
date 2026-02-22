@@ -30,6 +30,17 @@ public class AlunoRequestDTO {
 
     private Integer generoId;
 
+    public AlunoRequestDTO() {
+    }
+    public AlunoRequestDTO(Long cpf, String nome, Long matricula, String email, String senha, Integer roleId, Integer generoId) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.matricula = matricula;
+        this.email = email;
+        this.senha = senha;
+        this.roleId = roleId;
+        this.generoId = generoId;
+    }
 
     public @NotNull @CPF Long getCpf() {
         return cpf;

@@ -1,10 +1,9 @@
 package org.example.lunaris.service;
 
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.example.lunaris.dto.request.TurmaRequestDTO;
 import org.example.lunaris.dto.response.TurmaResponseDTO;
 import org.example.lunaris.exception.DuplicateException;
+import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Professor;
 import org.example.lunaris.model.Turma;
 import org.example.lunaris.model.TurmaProfessor;
@@ -16,17 +15,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class TurmaService {
 
     private final TurmaRepository turmaRepository;
     private final ProfessorRepository professorRepository;
     private final TurmaProfessorRepository turmaProfessorRepository;
 
+    public TurmaService(TurmaRepository turmaRepository, ProfessorRepository professorRepository, TurmaProfessorRepository turmaProfessorRepository) {
+        this.turmaRepository = turmaRepository;
+        this.professorRepository = professorRepository;
+        this.turmaProfessorRepository = turmaProfessorRepository;
+    }
+
     public List<TurmaResponseDTO> buscarPorTurma(Integer idProfessor) {
 
         Professor professor = professorRepository.findById(idProfessor)
-                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
 
         List<TurmaProfessor> vinculos =
                 turmaProfessorRepository.findByProfessor(professor);
@@ -56,7 +60,7 @@ public class TurmaService {
 
         Professor professor = professorRepository.findById(dto.getProfessorId())
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Professor não encontrado"));
+                        new NotFoundException("Professor não encontrado"));
 
         Turma turma = new Turma();
         turma.setNome(dto.getNome());
@@ -83,7 +87,7 @@ public class TurmaService {
 
         Turma turma = turmaRepository.findById(id)
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Turma não encontrada"));
+                        new NotFoundException("Turma não encontrada"));
 
         turmaProfessorRepository.deleteByTurma(id);
 

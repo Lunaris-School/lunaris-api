@@ -15,4 +15,63 @@ public class ProfessorPatchRequestDTO {
     private LocalDate dataContratacao;
     private Integer disciplinaId;
     private Integer escolaId;
+
+    public ProfessorPatchRequestDTO() {
+    }
+    public ProfessorPatchRequestDTO(String nome, String email, String senha, LocalDate dataContratacao, Integer disciplinaId, Integer escolaId) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.dataContratacao = dataContratacao;
+        this.disciplinaId = disciplinaId;
+        this.escolaId = escolaId;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public LocalDate getDataContratacao() {
+        return dataContratacao;
+    }
+
+    public void setDataContratacao(LocalDate dataContratacao) {
+        this.dataContratacao = dataContratacao;
+    }
+
+    public Integer getDisciplinaId() {
+        return disciplinaId;
+    }
+
+    public void setDisciplinaId(Integer disciplinaId) {
+        this.disciplinaId = disciplinaId;
+    }
+
+    public Integer getEscolaId() {
+        return escolaId;
+    }
+
+    public void setEscolaId(Integer escolaId) {
+        this.escolaId = escolaId;
+    }
 }

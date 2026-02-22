@@ -1,6 +1,5 @@
 package org.example.lunaris.service;
 
-import lombok.RequiredArgsConstructor;
 import org.example.lunaris.dto.request.BoletimRequestDTO;
 import org.example.lunaris.dto.response.BoletimResponseDTO;
 import org.example.lunaris.dto.response.NotasResponseDTO;
@@ -12,12 +11,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class BoletimService {
 
     private final BoletimRepository boletimRepository;
     private final AlunoRepository alunoRepository;
     private final DisciplinaRepository disciplinaRepository;
+
+    public BoletimService(BoletimRepository boletimRepository, AlunoRepository alunoRepository, DisciplinaRepository disciplinaRepository) {
+        this.boletimRepository = boletimRepository;
+        this.alunoRepository = alunoRepository;
+        this.disciplinaRepository = disciplinaRepository;
+    }
 
     public BoletimResponseDTO criarBoletim(BoletimRequestDTO dto) {
 

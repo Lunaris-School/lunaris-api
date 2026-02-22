@@ -4,10 +4,14 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class GeneroRequestDTO {
     private String nome;
+
+    public GeneroRequestDTO() {
+    }
+    public GeneroRequestDTO(String nome) {
+        this.nome = nome;
+    }
 
     public String getNome() {
         return nome;
