@@ -7,8 +7,6 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class AlunoRequestDTO {
 
     @NotNull
