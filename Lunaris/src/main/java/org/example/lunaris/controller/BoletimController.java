@@ -1,9 +1,7 @@
 package org.example.lunaris.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.example.lunaris.contract.BoletimContract;
 import org.example.lunaris.dto.request.BoletimRequestDTO;
 import org.example.lunaris.dto.response.BoletimResponseDTO;
 import org.example.lunaris.service.BoletimService;
@@ -14,22 +12,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/boletim")
-@RequiredArgsConstructor
-@Tag(name = "Boletim Controller", description = "Gerenciamento de boletins")
-public class BoletimController {
+public class BoletimController implements BoletimContract {
 
     private final BoletimService boletimService;
 
+    public BoletimController(BoletimService boletimService) {
+        this.boletimService = boletimService;
+    }
+
+    @Override
     @PostMapping
-    @Operation(summary = "Criar boletim")
     public ResponseEntity<BoletimResponseDTO> criar(
             @RequestBody @Valid BoletimRequestDTO dto) {
 
         return ResponseEntity.ok(boletimService.criarBoletim(dto));
     }
 
+    @Override
     @GetMapping("/aluno/{id}")
-    @Operation(summary = "Buscar boletins por aluno")
     public ResponseEntity<List<BoletimResponseDTO>> buscarPorAluno(@PathVariable Integer id) {
 
         List<BoletimResponseDTO> lista = boletimService.buscarPorAluno(id);
