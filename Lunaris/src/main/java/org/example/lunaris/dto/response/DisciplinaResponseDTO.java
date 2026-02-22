@@ -1,12 +1,12 @@
 package org.example.lunaris.dto.response;
 
-public class DisciplinaResponse {
+public class DisciplinaResponseDTO {
     Integer id;
     String nome;
 
-    public DisciplinaResponse() {
+    public DisciplinaResponseDTO() {
     }
-    public DisciplinaResponse(Integer id, String nome) {
+    public DisciplinaResponseDTO(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }

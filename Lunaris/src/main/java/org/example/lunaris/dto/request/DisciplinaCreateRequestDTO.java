@@ -1,16 +1,18 @@
 package org.example.lunaris.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 
-public class DisciplinaUpdateRequest {
 
-    String nome;
+public class DisciplinaCreateRequestDTO {
+    @NotNull
+     String nome;
+    @NotNull
+     String urlFoto;
 
-    String urlFoto;
-
-    public DisciplinaUpdateRequest() {
+    public DisciplinaCreateRequestDTO() {
     }
 
-    public DisciplinaUpdateRequest(String nome, String urlFoto) {
+    public DisciplinaCreateRequestDTO(String nome, String urlFoto) {
         this.nome = nome;
         this.urlFoto = urlFoto;
     }

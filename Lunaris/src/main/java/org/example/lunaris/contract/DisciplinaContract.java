@@ -5,13 +5,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.example.lunaris.dto.request.DisciplinaCreateRequest;
-import org.example.lunaris.dto.request.DisciplinaUpdateRequest;
-import org.example.lunaris.dto.response.DisciplinaResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.lunaris.dto.request.DisciplinaCreateRequestDTO;
+import org.example.lunaris.dto.request.DisciplinaUpdateRequestDTO;
+import org.example.lunaris.dto.response.DisciplinaResponseDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-
+@Tag(name = "Disciplina Controller", description = "Gerenciamento de disciplinas")
 public interface DisciplinaContract {
     @Operation(
             summary = "Cadastra uma nova disciplina",
@@ -23,7 +24,7 @@ public interface DisciplinaContract {
                     description = "Disciplina cadastrada com sucesso",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = DisciplinaResponse.class)
+                            schema = @Schema(implementation = DisciplinaResponseDTO.class)
                     )
             ),
             @ApiResponse(
@@ -32,7 +33,7 @@ public interface DisciplinaContract {
                     content = @Content
             )
     })
-    ResponseEntity<DisciplinaResponse> cadastrar(DisciplinaCreateRequest disciplinaRequest);
+    ResponseEntity<DisciplinaResponseDTO> cadastrar(DisciplinaCreateRequestDTO disciplinaRequest);
 
     @Operation(
             summary = "Atualizar disciplina",
@@ -44,7 +45,7 @@ public interface DisciplinaContract {
                     description = "Disciplina atualizada com sucesso",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = DisciplinaResponse.class)
+                            schema = @Schema(implementation = DisciplinaResponseDTO.class)
                     )
             ),
             @ApiResponse(
@@ -53,7 +54,7 @@ public interface DisciplinaContract {
                     content = @Content
             )
     })
-    ResponseEntity<DisciplinaResponse> atualizar(int id, DisciplinaUpdateRequest disciplinaUpdateRequest);
+    ResponseEntity<DisciplinaResponseDTO> atualizar(int id, DisciplinaUpdateRequestDTO disciplinaUpdateRequest);
 
     @Operation(
             summary = "Listar disciplinas",
@@ -65,9 +66,9 @@ public interface DisciplinaContract {
                     description = "Disciplinas retornadas com sucesso",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = DisciplinaResponse.class)
+                            schema = @Schema(implementation = DisciplinaResponseDTO.class)
                     )
             )
     })
-    ResponseEntity<List<DisciplinaResponse>> listarAdmins();
+    ResponseEntity<List<DisciplinaResponseDTO>> listarDisciplinas();
 }
