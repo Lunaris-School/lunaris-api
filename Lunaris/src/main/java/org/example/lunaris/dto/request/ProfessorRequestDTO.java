@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -25,13 +25,70 @@ public class ProfessorRequestDTO {
     private String senha;
     @NotNull
     @Positive
-    private int disciplina_id;
-    @NotNull
-    @Positive
-    private int role_id;
+    private int disciplinaId;
+
     @NotNull
     @Past
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date data_contratacao;
+    private LocalDate dataContratacao;
 
+    public ProfessorRequestDTO() {
+
+    }
+    public ProfessorRequestDTO(Long cpf, String nome, String email, String senha, int disciplinaId, LocalDate dataContratacao) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.disciplinaId = disciplinaId;
+        this.dataContratacao = dataContratacao;
+    }
+
+    public Long getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(Long cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public int getDisciplinaId() {
+        return disciplinaId;
+    }
+
+    public void setDisciplinaId(int disciplinaId) {
+        this.disciplinaId = disciplinaId;
+    }
+
+    public LocalDate getDataContratacao() {
+        return dataContratacao;
+    }
+
+    public void setDataContratacao(LocalDate dataContratacao) {
+        this.dataContratacao = dataContratacao;
+    }
 }

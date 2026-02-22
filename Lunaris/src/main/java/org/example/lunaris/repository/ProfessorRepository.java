@@ -11,17 +11,12 @@ import java.util.List;
 public interface ProfessorRepository extends JpaRepository<Professor, Integer> {
 
     @Query("""
-        SELECT p
-        FROM Professor p
-        WHERE p.escola.idEscola = :escolaId
-    """)
-    List<Professor> buscarPorEscola(@Param("escolaId") Integer escolaId);
-
-    @Query("""
         SELECT a
         FROM Aluno a
         JOIN a.turma t
-        WHERE t.professor.idProfessor = :idProfessor
+        JOIN t.turmaProfessors tp
+        JOIN tp.professor p
+        WHERE p.idProfessor = :idProfessor
     """)
     List<Aluno> buscarAlunosDoProfessor(@Param("idProfessor") Integer idProfessor);
 }

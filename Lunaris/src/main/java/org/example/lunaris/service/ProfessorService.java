@@ -1,36 +1,41 @@
 package org.example.lunaris.service;
 
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+
+import org.example.lunaris.Enum.RoleEnum;
 import org.example.lunaris.dto.request.ProfessorPatchRequestDTO;
 import org.example.lunaris.dto.request.ProfessorRequestDTO;
 import org.example.lunaris.dto.response.ProfessorResponseDTO;
+import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Aluno;
-//import org.example.lunaris.model.Disciplina;
-//import org.example.lunaris.model.Escola;
 import org.example.lunaris.model.Disciplina;
 import org.example.lunaris.model.Professor;
-//import org.example.lunaris.repository.DisciplinaRepository;
-//import org.example.lunaris.repository.EscolaRepository;
+import org.example.lunaris.model.Role;
 import org.example.lunaris.repository.DisciplinaRepository;
 import org.example.lunaris.repository.ProfessorRepository;
+import org.example.lunaris.repository.RoleRepository;
+import org.example.lunaris.repository.TurmaProfessorRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ProfessorService {
 
     private final ProfessorRepository professorRepository;
     private final DisciplinaRepository disciplinaRepository;
 
+    private final RoleRepository roleRepository;
+    private final TurmaProfessorRepository turmaProfessorRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public List<ProfessorResponseDTO> buscarPorEscola(Integer escolaId) {
-        return professorRepository.buscarPorEscola(escolaId)
-                .stream()
-                .map(this::toDTO)
-                .toList();
+
+    public ProfessorService(ProfessorRepository professorRepository, DisciplinaRepository disciplinaRepository, RoleRepository roleRepository, TurmaProfessorRepository turmaProfessorRepository, PasswordEncoder passwordEncoder) {
+        this.professorRepository = professorRepository;
+        this.disciplinaRepository = disciplinaRepository;
+        this.roleRepository = roleRepository;
+        this.turmaProfessorRepository = turmaProfessorRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public ProfessorResponseDTO getProfessorById(Integer id) {
@@ -41,19 +46,19 @@ public class ProfessorService {
     public ProfessorResponseDTO salvarProfessor(ProfessorRequestDTO dto) {
 
         Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
-                .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada"));
-//
-//        Escola escola = escolaRepository.findById(dto.getEscolaId())
-//                .orElseThrow(() -> new EntityNotFoundException("Escola não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
 
         Professor professor = new Professor();
         professor.setNome(dto.getNome());
         professor.setEmail(dto.getEmail());
         professor.setCpf(dto.getCpf());
-        professor.setSenha(dto.getSenha());
-        professor.setDataContratacao(dto.getData_contratacao());
-//        professor.setDisciplina(disciplina);
-//        professor.setEscola(escola);
+        professor.setSenha(passwordEncoder.encode(dto.getSenha()));
+        professor.setDataContratacao(dto.getDataContratacao());
+        professor.setDisciplina(disciplina);
+
+        Role professorRole = roleRepository.findByNome(RoleEnum.PROFESSOR.name());
+
+        professor.setRole(professorRole);
 
         return toDTO(professorRepository.save(professor));
     }
@@ -63,18 +68,14 @@ public class ProfessorService {
         Professor professor = findProfessor(id);
 
         Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
-                .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada"));
-//
-//        Escola escola = escolaRepository.findById(dto.getEscolaId())
-//                .orElseThrow(() -> new EntityNotFoundException("Escola não encontrada"));
+                .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
 
         professor.setNome(dto.getNome());
         professor.setEmail(dto.getEmail());
         professor.setCpf(dto.getCpf());
-        professor.setSenha(dto.getSenha());
-        professor.setDataContratacao(dto.getData_contratacao());
-//        professor.setDisciplina(disciplina);
-//        professor.setEscola(escola);
+        professor.setSenha(passwordEncoder.encode(dto.getSenha()));
+        professor.setDataContratacao(dto.getDataContratacao());
+        professor.setDisciplina(disciplina);
 
         return toDTO(professorRepository.save(professor));
     }
@@ -90,7 +91,7 @@ public class ProfessorService {
 
         if (dto.getDisciplinaId() != null) {
             Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
-                    .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada"));
+                    .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
             professor.setDisciplina(disciplina);
         }
 
@@ -99,6 +100,9 @@ public class ProfessorService {
 
     public void deletarProfessor(Integer id) {
         Professor professor = findProfessor(id);
+
+        turmaProfessorRepository.deleteByProfessor(id);
+
         professorRepository.delete(professor);
     }
 
@@ -108,7 +112,7 @@ public class ProfessorService {
 
     private Professor findProfessor(Integer id) {
         return professorRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
     }
 
     private ProfessorResponseDTO toDTO(Professor professor) {
