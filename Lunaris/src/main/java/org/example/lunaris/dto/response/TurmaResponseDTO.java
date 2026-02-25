@@ -7,13 +7,13 @@ public class TurmaResponseDTO {
 
     private Integer id;
     private String nome;
-    private Integer anoLetivo;
+    private String anoLetivo;
     private Integer professorId;
     private String professorNome;
 
     public TurmaResponseDTO() {
     }
-    public TurmaResponseDTO(Integer id, String nome, Integer anoLetivo, Integer professorId, String professorNome) {
+    public TurmaResponseDTO(Integer id, String nome, String anoLetivo, Integer professorId, String professorNome) {
         this.id = id;
         this.nome = nome;
         this.anoLetivo = anoLetivo;
@@ -37,11 +37,11 @@ public class TurmaResponseDTO {
         this.nome = nome;
     }
 
-    public Integer getAnoLetivo() {
+    public String getAnoLetivo() {
         return anoLetivo;
     }
 
-    public void setAnoLetivo(Integer anoLetivo) {
+    public void setAnoLetivo(String anoLetivo) {
         this.anoLetivo = anoLetivo;
     }
 

@@ -43,7 +43,7 @@ public class TurmaService {
                     return new TurmaResponseDTO(
                             turma.getId(),
                             turma.getNome(),
-                            turma.getAnoLetivo(),
+                            String.valueOf(turma.getAnoLetivo()),
                             professor.getIdProfessor(),
                             professor.getNome()
                     );
@@ -77,7 +77,7 @@ public class TurmaService {
         return new TurmaResponseDTO(
                 turmaSalva.getId(),
                 turmaSalva.getNome(),
-                turmaSalva.getAnoLetivo(),
+                String.valueOf(turmaSalva.getAnoLetivo()),
                 professor.getIdProfessor(),
                 professor.getNome()
         );
