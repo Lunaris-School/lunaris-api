@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import org.example.lunaris.contract.AdministradorContract;
 import org.example.lunaris.dto.request.AdminCreateRequestDTO;
 import org.example.lunaris.dto.response.AdminResponseDTO;
-import org.example.lunaris.model.Administrador;
 import org.example.lunaris.service.AdministradorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +43,15 @@ public class AdministradorController implements AdministradorContract {
     }
 
     @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarAdmin(@PathVariable int id){
+        administradorService.deletarAdmin(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @Override
     @GetMapping("/{id}")
-    public ResponseEntity<Administrador> getById(@PathVariable int id){
-        Administrador admin = administradorService.getById(id);
+    public ResponseEntity<AdminResponseDTO> getById(@PathVariable int id){
+        AdminResponseDTO admin = administradorService.getById(id);
         return new ResponseEntity<>(admin, HttpStatus.FOUND);
     }
 }
