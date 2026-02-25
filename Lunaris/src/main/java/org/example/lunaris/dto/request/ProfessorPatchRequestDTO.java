@@ -13,19 +13,19 @@ public class ProfessorPatchRequestDTO {
     private String email;
     private String senha;
     private LocalDate dataContratacao;
-    private Integer disciplinaId;
-    private Integer escolaId;
+    private int disciplinaId;
 
     public ProfessorPatchRequestDTO() {
     }
-    public ProfessorPatchRequestDTO(String nome, String email, String senha, LocalDate dataContratacao, Integer disciplinaId, Integer escolaId) {
+
+    public ProfessorPatchRequestDTO( String nome, String email, String senha, LocalDate dataContratacao, int disciplinaId) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.dataContratacao = dataContratacao;
         this.disciplinaId = disciplinaId;
-        this.escolaId = escolaId;
     }
+
 
     public String getNome() {
         return nome;
@@ -65,13 +65,5 @@ public class ProfessorPatchRequestDTO {
 
     public void setDisciplinaId(Integer disciplinaId) {
         this.disciplinaId = disciplinaId;
-    }
-
-    public Integer getEscolaId() {
-        return escolaId;
-    }
-
-    public void setEscolaId(Integer escolaId) {
-        this.escolaId = escolaId;
     }
 }

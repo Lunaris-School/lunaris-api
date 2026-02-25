@@ -24,7 +24,7 @@ public interface ProfessorContract {
                                 schema = @Schema(implementation = ProfessorResponseDTO.class))),
                 @ApiResponse(responseCode = "404", description = "Professor não encontrado")
         })
-    ResponseEntity<ProfessorResponseDTO> getProfessorById(Integer id);
+    ResponseEntity<ProfessorResponseDTO> getProfessorById(Long cpf);
 
     @Operation(summary = "Criar um novo professor",
             description = "Cria um novo professor no sistema")
@@ -44,7 +44,7 @@ public interface ProfessorContract {
                             schema = @Schema(implementation = ProfessorResponseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Professor não encontrado")
     })
-    ResponseEntity<ProfessorResponseDTO> atualizarProfessor(Integer id, ProfessorRequestDTO requestDTO);
+    ResponseEntity<ProfessorResponseDTO> atualizarProfessor(Long cpf, ProfessorPatchRequestDTO requestDTO);
 
     @Operation(summary = "Atualiza parcialmente um professor",
             description = "Atualiza parcialmente os dados de um professor")
@@ -54,7 +54,7 @@ public interface ProfessorContract {
                             schema = @Schema(implementation = ProfessorResponseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Professor não encontrado")
     })
-    ResponseEntity<ProfessorResponseDTO> atualizarProfessorParcial(Integer id, ProfessorPatchRequestDTO requestDTO);
+    ResponseEntity<ProfessorResponseDTO> atualizarProfessorParcial(Long cpf, ProfessorPatchRequestDTO requestDTO);
 
     @Operation(summary = "Deleta um professor",
             description = "Remove um professor do sistema pelo ID")
@@ -62,7 +62,7 @@ public interface ProfessorContract {
             @ApiResponse(responseCode = "204", description = "Professor deletado com sucesso"),
             @ApiResponse(responseCode = "404", description = "Professor não encontrado")
     })
-    ResponseEntity<Void> deletarProfessor(Integer id);
+    ResponseEntity<Void> deletarProfessor(Long cpf);
 
     @Operation(summary = "Retorna todos os alunos de um professor",
             description = "Lista todos os alunos das turmas em que o professor leciona")
@@ -72,5 +72,5 @@ public interface ProfessorContract {
                             schema = @Schema(implementation = Aluno.class))),
             @ApiResponse(responseCode = "204", description = "Professor não possui alunos")
     })
-    ResponseEntity<List<Aluno>> buscarAlunosDoProfessor(Integer id);
+    ResponseEntity<List<Aluno>> buscarAlunosDoProfessor(Long cpf);
 }

@@ -21,11 +21,11 @@ public class TurmaController implements TurmaContract {
         this.turmaService = turmaService;
     }
 
-    @Override
     @GetMapping("/listarTurmaPorProfessor/{id}")
-    public ResponseEntity<List<TurmaResponseDTO>> buscarPorTurma(@PathVariable Integer id) {
+    @Override
+    public ResponseEntity<List<TurmaResponseDTO>> buscarPorTurma(@PathVariable Long cpfProfessor) {
 
-        List<TurmaResponseDTO> lista = turmaService.buscarPorTurma(id);
+        List<TurmaResponseDTO> lista = turmaService.buscarPorTurma(cpfProfessor);
 
         if (lista.isEmpty()) {
             return ResponseEntity.noContent().build();

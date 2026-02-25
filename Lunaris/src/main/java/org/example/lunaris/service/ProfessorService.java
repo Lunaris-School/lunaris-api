@@ -38,8 +38,8 @@ public class ProfessorService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ProfessorResponseDTO getProfessorById(Integer id) {
-        Professor professor = findProfessor(id);
+    public ProfessorResponseDTO getProfessorById(Long cpf) {
+        Professor professor = findProfessor(cpf);
         return toDTO(professor);
     }
 
@@ -48,80 +48,77 @@ public class ProfessorService {
         Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
                 .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
 
+        System.out.println(dto.getCpf());
         Professor professor = new Professor();
+        professor.setCpf(dto.getCpf());
         professor.setNome(dto.getNome());
         professor.setEmail(dto.getEmail());
-        professor.setCpf(dto.getCpf());
         professor.setSenha(passwordEncoder.encode(dto.getSenha()));
-        professor.setDataContratacao(dto.getDataContratacao());
         professor.setDisciplina(disciplina);
+        professor.setDataContratacao(dto.getDataContratacao());
 
         Role professorRole = roleRepository.findByNome(RoleEnum.PROFESSOR.name());
-
         professor.setRole(professorRole);
+
+        System.out.println(professor);
 
         return toDTO(professorRepository.save(professor));
     }
 
-    public ProfessorResponseDTO atualizarProfessor(Integer id, ProfessorRequestDTO dto) {
+    public ProfessorResponseDTO atualizarProfessor(Long cpf, ProfessorPatchRequestDTO dto) {
 
-        Professor professor = findProfessor(id);
+        Professor professor = findProfessor(cpf);
 
         Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
                 .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
 
         professor.setNome(dto.getNome());
         professor.setEmail(dto.getEmail());
-        professor.setCpf(dto.getCpf());
         professor.setSenha(passwordEncoder.encode(dto.getSenha()));
-        professor.setDataContratacao(dto.getDataContratacao());
         professor.setDisciplina(disciplina);
+        professor.setDataContratacao(dto.getDataContratacao());
+
 
         return toDTO(professorRepository.save(professor));
     }
 
-    public ProfessorResponseDTO atualizarParcialProfessor(Integer id, ProfessorPatchRequestDTO dto) {
+    public ProfessorResponseDTO atualizarParcialProfessor(Long cpf, ProfessorPatchRequestDTO dto) {
 
-        Professor professor = findProfessor(id);
-
+        Professor professor = findProfessor(cpf);
         if (dto.getNome() != null) professor.setNome(dto.getNome());
         if (dto.getEmail() != null) professor.setEmail(dto.getEmail());
         if (dto.getSenha() != null) professor.setSenha(dto.getSenha());
+        if (dto.getDisciplinaId() != null) professo
         if (dto.getDataContratacao() != null) professor.setDataContratacao(dto.getDataContratacao());
 
-        if (dto.getDisciplinaId() != null) {
-            Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
-                    .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
-            professor.setDisciplina(disciplina);
-        }
 
         return toDTO(professorRepository.save(professor));
     }
 
-    public void deletarProfessor(Integer id) {
-        Professor professor = findProfessor(id);
+    public void deletarProfessor(Long cpf) {
+        Professor professor = findProfessor(cpf);
 
-        turmaProfessorRepository.deleteByProfessor(id);
+        turmaProfessorRepository.deleteByProfessor(cpf);
 
         professorRepository.delete(professor);
     }
 
-    public List<Aluno> buscarAlunosDoProfessor(Integer idProfessor) {
-        return professorRepository.buscarAlunosDoProfessor(idProfessor);
+    public List<Aluno> buscarAlunosDoProfessor(Long professorCpf) {
+        return professorRepository.buscarAlunosDoProfessor(professorCpf);
     }
 
-    private Professor findProfessor(Integer id) {
-        return professorRepository.findById(id)
+    private Professor findProfessor(Long cpf) {
+        return professorRepository.findById(cpf)
                 .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
     }
 
     private ProfessorResponseDTO toDTO(Professor professor) {
         return new ProfessorResponseDTO(
-                professor.getIdProfessor(),
+                professor.getCpf(),
                 professor.getNome(),
                 professor.getEmail(),
-                professor.getCpf(),
-                professor.getDataContratacao(),
-                professor.getDisciplina().getNome());
+                professor.getDisciplina().getNome(),
+                professor.getDataContratacao()
+                );
     }
 }

@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.lunaris.dto.request.TurmaRequestDTO;
 import org.example.lunaris.dto.response.TurmaResponseDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -22,7 +24,8 @@ public interface TurmaContract {
                             schema = @Schema(implementation = TurmaResponseDTO.class))),
             @ApiResponse(responseCode = "204", description = "Nenhuma turma encontrada")
     })
-    ResponseEntity<List<TurmaResponseDTO>> buscarPorTurma(Integer id);
+    @GetMapping("/listarTurmaPorProfessor/{id}")
+    ResponseEntity<List<TurmaResponseDTO>> buscarPorTurma(@PathVariable Long cpfProfessor);
 
     @Operation(summary = "Criar uma nova turma",
             description = "Cria uma nova turma no sistema")

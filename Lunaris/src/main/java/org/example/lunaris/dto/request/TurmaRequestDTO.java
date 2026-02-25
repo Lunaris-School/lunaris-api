@@ -17,17 +17,17 @@ public class TurmaRequestDTO {
     private Integer anoLetivo;
 
     @NotNull
-    private Integer professorId;
+    private Long professorCpf;
 
     @NotNull
     private Integer disciplinaId;
 
     public TurmaRequestDTO() {
     }
-    public TurmaRequestDTO(String nome, Integer anoLetivo, Integer professorId, Integer disciplinaId) {
+    public TurmaRequestDTO(String nome, Integer anoLetivo, Long professorCpf, Integer disciplinaId) {
         this.nome = nome;
         this.anoLetivo = anoLetivo;
-        this.professorId = professorId;
+        this.professorCpf = professorCpf;
         this.disciplinaId = disciplinaId;
     }
 
@@ -47,12 +47,12 @@ public class TurmaRequestDTO {
         this.anoLetivo = anoLetivo;
     }
 
-    public Integer getProfessorId() {
-        return professorId;
+    public @NotNull Long getProfessorCpf() {
+        return professorCpf;
     }
 
-    public void setProfessorId(Integer professorId) {
-        this.professorId = professorId;
+    public void setProfessorCpf(@NotNull Long professorCpf) {
+        this.professorCpf = professorCpf;
     }
 
     public Integer getDisciplinaId() {

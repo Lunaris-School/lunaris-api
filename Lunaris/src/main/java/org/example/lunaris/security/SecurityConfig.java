@@ -17,31 +17,17 @@ public class SecurityConfig {
 
 
     @Bean
-    @Order(1)
-    public SecurityFilterChain swaggerFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/swagger-ui/**", "/v3/api-docs/**")
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .csrf(csrf -> csrf.disable());
+                .csrf(csrf -> csrf.disable()) // desativa CSRF
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
+
+                );
 
         return http.build();
     }
-    @Bean
-    @Order(2)
-    public SecurityFilterChain appFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorize -> {
-                    configurarRotasAdmin(authorize);
-                    configurarRotasAluno(authorize);
-                    configurarRotasProfessor(authorize);
 
-                    authorize.anyRequest().authenticated();
-                })
-                .httpBasic(Customizer.withDefaults());
-
-        return http.build();
-    }
 
     private void configurarRotasAdmin(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){
         authorize.requestMatchers("/api/admin/**").hasRole("ADMIN");
