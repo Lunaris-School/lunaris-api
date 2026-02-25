@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.example.lunaris.Enum.RoleEnum;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
+import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
 import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Aluno;
 import org.example.lunaris.model.Genero;
@@ -16,7 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class AlunoService {
@@ -101,6 +103,15 @@ public class AlunoService {
     }
 
     public List<AlunoResponseDTO> listarAlunos(){
-        return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::toDTO).collect(toList());
+    }
+
+    public List<AlunoTurmaResponseDTO> listarAlunosPorTurma(Integer ano){
+        List<Object[]> dados = repository.countAlunosByTurma(ano);
+
+        return dados.stream().map(object ->{
+            Number total = (Number) object[0];
+            return new AlunoTurmaResponseDTO(total.longValue(),(String) object[1], String.valueOf((Integer) object[2]));
+        }).toList();
     }
 }

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
+import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -34,6 +35,16 @@ public interface AlunoContract {
             @ApiResponse(responseCode = "204", description = "Nenhum aluno encontrado")
     })
     ResponseEntity<List<AlunoResponseDTO>> listarAlunos();
+
+    @Operation(summary = "Listar os alunos por turma",
+            description = "Retorna uma lista a quantidade de aluno por turma")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AlunoTurmaResponseDTO.class))),
+            @ApiResponse(responseCode = "204", description = "Nenhum aluno encontrado")
+    })
+    ResponseEntity<List<AlunoTurmaResponseDTO>> listarAlunosTurma(Integer ano);
 
     @Operation(summary = "Criar novo aluno",
             description = "Cria um novo aluno no sistema")
