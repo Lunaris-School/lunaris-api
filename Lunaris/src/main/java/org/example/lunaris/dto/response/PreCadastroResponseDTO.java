@@ -1,11 +1,14 @@
 package org.example.lunaris.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 public class PreCadastroResponseDTO {
     Integer id;
     BigInteger alunoCpf;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime dataAutorizacao;
 
     public PreCadastroResponseDTO() {
