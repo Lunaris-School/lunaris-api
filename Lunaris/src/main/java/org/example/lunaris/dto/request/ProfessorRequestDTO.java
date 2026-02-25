@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.lunaris.model.Role;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
@@ -12,7 +13,6 @@ import java.time.LocalDate;
 @Setter
 public class ProfessorRequestDTO {
 
-    @CPF
     @NotNull
     private Long cpf;
     @NotBlank
@@ -91,4 +91,5 @@ public class ProfessorRequestDTO {
     public void setDataContratacao(LocalDate dataContratacao) {
         this.dataContratacao = dataContratacao;
     }
+
 }

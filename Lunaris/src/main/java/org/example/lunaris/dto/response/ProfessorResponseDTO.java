@@ -7,31 +7,24 @@ import java.time.LocalDate;
 @Getter
 public class ProfessorResponseDTO {
 
-    private Integer idProfessor;
+    private Long cpf;
     private String nome;
     private String email;
-    private Long cpf;
-    private LocalDate dataContratacao;
     private String disciplina;
+    private String role;
+    private LocalDate dataContratacao;
+
 
     public ProfessorResponseDTO() {
     }
-    public ProfessorResponseDTO(Integer idProfessor, String nome, String email, Long cpf, LocalDate dataContratacao, String disciplina) {
-        this.idProfessor = idProfessor;
+    public ProfessorResponseDTO( Long cpf,  String nome, String email, String disciplina, LocalDate dataContratacao) {
+        this.cpf = cpf;
         this.nome = nome;
         this.email = email;
-        this.cpf = cpf;
-        this.dataContratacao = dataContratacao;
         this.disciplina = disciplina;
+        this.dataContratacao = dataContratacao;
     }
 
-    public Integer getIdProfessor() {
-        return idProfessor;
-    }
-
-    public void setIdProfessor(Integer idProfessor) {
-        this.idProfessor = idProfessor;
-    }
 
     public String getNome() {
         return nome;

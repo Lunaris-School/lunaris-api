@@ -8,16 +8,16 @@ public class TurmaResponseDTO {
     private Integer id;
     private String nome;
     private String anoLetivo;
-    private Integer professorId;
+    private Long professorCpf;
     private String professorNome;
 
     public TurmaResponseDTO() {
     }
-    public TurmaResponseDTO(Integer id, String nome, String anoLetivo, Integer professorId, String professorNome) {
+    public TurmaResponseDTO(Integer id, String nome, String anoLetivo, Long professorCpf, String professorNome) {
         this.id = id;
         this.nome = nome;
         this.anoLetivo = anoLetivo;
-        this.professorId = professorId;
+        this.professorCpf = professorCpf;
         this.professorNome = professorNome;
     }
 
@@ -45,12 +45,12 @@ public class TurmaResponseDTO {
         this.anoLetivo = anoLetivo;
     }
 
-    public Integer getProfessorId() {
-        return professorId;
+    public Long getProfessorCpf() {
+        return professorCpf;
     }
 
-    public void setProfessorId(Integer professorId) {
-        this.professorId = professorId;
+    public void setProfessorCpf(Long professorCpf) {
+        this.professorCpf = professorCpf;
     }
 
     public String getProfessorNome() {

@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProfessorRepository extends JpaRepository<Professor, Integer> {
+public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
     @Query("""
         SELECT a
@@ -17,9 +17,9 @@ public interface ProfessorRepository extends JpaRepository<Professor, Integer> {
         JOIN a.turma t
         JOIN t.turmaProfessors tp
         JOIN tp.professor p
-        WHERE p.idProfessor = :idProfessor
+        WHERE p.cpf = :cpf
     """)
-    List<Aluno> buscarAlunosDoProfessor(@Param("idProfessor") Integer idProfessor);
+    List<Aluno> buscarAlunosDoProfessor(@Param("cpf") Long cpf);
 
     Optional<Professor> findByEmail(String email);
 }
