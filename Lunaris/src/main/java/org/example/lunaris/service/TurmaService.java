@@ -27,9 +27,9 @@ public class TurmaService {
         this.turmaProfessorRepository = turmaProfessorRepository;
     }
 
-    public List<TurmaResponseDTO> buscarPorTurma(Integer idProfessor) {
+    public List<TurmaResponseDTO> buscarPorTurma(Long cpf) {
 
-        Professor professor = professorRepository.findById(idProfessor)
+        Professor professor = professorRepository.findById(cpf)
                 .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
 
         List<TurmaProfessor> vinculos =
@@ -43,8 +43,8 @@ public class TurmaService {
                     return new TurmaResponseDTO(
                             turma.getId(),
                             turma.getNome(),
-                            turma.getAnoLetivo(),
-                            professor.getIdProfessor(),
+                            String.valueOf(turma.getAnoLetivo()),
+                            professor.getCpf(),
                             professor.getNome()
                     );
                 })
@@ -58,7 +58,7 @@ public class TurmaService {
             throw new DuplicateException("Turma já foi cadastrada");
         }
 
-        Professor professor = professorRepository.findById(dto.getProfessorId())
+        Professor professor = professorRepository.findById(dto.getProfessorCpf())
                 .orElseThrow(() ->
                         new NotFoundException("Professor não encontrado"));
 
@@ -77,8 +77,8 @@ public class TurmaService {
         return new TurmaResponseDTO(
                 turmaSalva.getId(),
                 turmaSalva.getNome(),
-                turmaSalva.getAnoLetivo(),
-                professor.getIdProfessor(),
+                String.valueOf(turmaSalva.getAnoLetivo()),
+                professor.getCpf(),
                 professor.getNome()
         );
     }

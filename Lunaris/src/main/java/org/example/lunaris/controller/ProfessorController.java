@@ -22,37 +22,35 @@ public class ProfessorController implements ProfessorContract {
     }
 
     @Override
-    @GetMapping("/{id}")
-    public ResponseEntity<ProfessorResponseDTO> getProfessorById(@PathVariable Integer id) {
-            return ResponseEntity.ok(professorService.getProfessorById(id));
+    @GetMapping("/{cpf}")
+    public ResponseEntity<ProfessorResponseDTO> getProfessorById(@PathVariable Long cpf) {
+            return ResponseEntity.ok(professorService.getProfessorById(cpf));
     }
     @Override
     @PostMapping
-
     public ResponseEntity<ProfessorResponseDTO> salvarProfessor(@RequestBody @Valid ProfessorRequestDTO requestDTO) {
             return ResponseEntity.ok(professorService.salvarProfessor(requestDTO));
     }
     @Override
-    @PutMapping("/atualizar/{id}")
-    public ResponseEntity<ProfessorResponseDTO> atualizarProfessor(@PathVariable Integer id, @RequestBody @Valid ProfessorRequestDTO requestDTO) {
-            return ResponseEntity.ok(professorService.atualizarProfessor(id, requestDTO));
+    @PutMapping("/atualizar/{cpf}")
+    public ResponseEntity<ProfessorResponseDTO> atualizarProfessor(@PathVariable Long cpf, @RequestBody @Valid ProfessorPatchRequestDTO requestDTO) {
+            return ResponseEntity.ok(professorService.atualizarProfessor(cpf, requestDTO));
     }
     @Override
-
-    @PatchMapping("/atualizar-parcial/{id}")
-    public ResponseEntity<ProfessorResponseDTO> atualizarProfessorParcial(@PathVariable Integer id, @RequestBody ProfessorPatchRequestDTO requestDTO) {
-            return ResponseEntity.ok(professorService.atualizarParcialProfessor(id, requestDTO));
+    @PatchMapping("/atualizar-parcial/{cpf}")
+    public ResponseEntity<ProfessorResponseDTO> atualizarProfessorParcial(@PathVariable Long cpf, @RequestBody ProfessorPatchRequestDTO requestDTO) {
+            return ResponseEntity.ok(professorService.atualizarParcialProfessor(cpf, requestDTO));
     }
     @Override
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Void> deletarProfessor(@PathVariable Integer id) {
-            professorService.deletarProfessor(id);
+    @DeleteMapping("/deletar/{cpf}")
+    public ResponseEntity<Void> deletarProfessor(@PathVariable Long cpf) {
+            professorService.deletarProfessor(cpf);
             return ResponseEntity.noContent().build();
     }
     @Override
-    @GetMapping("/{id}/alunos")
-    public ResponseEntity<List<Aluno>> buscarAlunosDoProfessor(@PathVariable Integer id) {
-            List<Aluno> alunos = professorService.buscarAlunosDoProfessor(id);
+    @GetMapping("/{cpf}/alunos")
+    public ResponseEntity<List<Aluno>> buscarAlunosDoProfessor(@PathVariable Long cpf) {
+            List<Aluno> alunos = professorService.buscarAlunosDoProfessor(cpf);
             if (alunos.isEmpty()) {
                     return ResponseEntity.noContent().build();
             }

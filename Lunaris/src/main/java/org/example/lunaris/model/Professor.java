@@ -14,17 +14,12 @@ import java.util.List;
 public class Professor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idProfessor;
-
+    private Long cpf;
     @Column(nullable = false, length = 100)
     private String nome;
 
     @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false, unique = true)
-    private Long cpf;
 
     @Column(nullable = false)
     private String senha;
@@ -42,14 +37,6 @@ public class Professor {
 
     @OneToMany(mappedBy = "professor")
     private List<TurmaProfessor> turmaProfessores;
-
-    public Integer getIdProfessor() {
-        return idProfessor;
-    }
-
-    public void setIdProfessor(Integer idProfessor) {
-        this.idProfessor = idProfessor;
-    }
 
     public String getNome() {
         return nome;

@@ -18,10 +18,10 @@ public interface TurmaProfessorRepository extends JpaRepository<TurmaProfessor, 
     @Transactional
     @Query("""
         DELETE FROM TurmaProfessor tp
-        WHERE tp.professor.idProfessor = :idProfessor
+        WHERE tp.professor.cpf = :cpf
         """)
 
-    void deleteByProfessor(@Param("idProfessor") Integer idProfessor);
+    void deleteByProfessor(@Param("cpf") Long cpf);
 
     @Modifying
     @Transactional

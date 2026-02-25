@@ -42,9 +42,14 @@ public class DisciplinaService {
         if (disciplinaOptional.isEmpty()){
             throw new NotFoundException("Disciplina não encontrado");
         }
-        Disciplina disciplina = new Disciplina();
+        Disciplina disciplina = disciplinaOptional.get();
 
-        BeanUtils.copyProperties(disciplinaUpdateRequest,disciplina);
+        if (disciplinaUpdateRequest.getNome() != null){
+            disciplina.setNome(disciplinaUpdateRequest.getNome());
+        }
+        if (disciplinaUpdateRequest.getUrlFoto() != null){
+            disciplina.setUrlFoto(disciplinaUpdateRequest.getUrlFoto());
+        }
 
         Disciplina disciplinaSalva = disciplinaRepository.save(disciplina);
 

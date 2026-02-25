@@ -4,6 +4,7 @@ package org.example.lunaris.controller;
 import org.example.lunaris.contract.AlunoContract;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
+import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
 import org.example.lunaris.service.AlunoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,15 @@ public class AlunoController implements AlunoContract {
     }
 
     @Override
-    @GetMapping("/listar")
+    @GetMapping
     public ResponseEntity<List<AlunoResponseDTO>> listarAlunos(){
         return ResponseEntity.ok(alunoService.listarAlunos());
+    }
+
+    @Override
+    @GetMapping("/listarPorTurma")
+    public ResponseEntity<List<AlunoTurmaResponseDTO>> listarAlunosTurma(@RequestParam Integer ano){
+        return ResponseEntity.ok(alunoService.listarAlunosPorTurma(ano));
     }
 
     @Override

@@ -69,7 +69,7 @@ public interface AdministradorContract {
     )
     @ApiResponses({
             @ApiResponse(
-                    responseCode = "200",
+                    responseCode = "302",
                     description = "Administradores retornados com sucesso",
                     content = @Content(
                             mediaType = "application/json",
@@ -83,6 +83,27 @@ public interface AdministradorContract {
             )
     })
     ResponseEntity<List<AdminResponseDTO>> listarAdmins();
+
+    @Operation(
+            summary = "Deleta um administrador",
+            description = "Busca um administrador existente pelo ID e deleta ele do banco."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Administrador deletado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Administrador.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Administrador não encontrado",
+                    content = @Content
+            )
+    })
+    ResponseEntity<Void> deletarAdmin(int id);
 
     @Operation(
             summary = "Busca um administrador",
@@ -103,5 +124,5 @@ public interface AdministradorContract {
                     content = @Content
             )
     })
-    ResponseEntity<Administrador> getById(int id);
+    ResponseEntity<AdminResponseDTO> getById(int id);
 }

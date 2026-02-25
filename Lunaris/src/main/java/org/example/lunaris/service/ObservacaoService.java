@@ -6,7 +6,9 @@ import org.example.lunaris.dto.request.ObservacaoRequestDTO;
 import org.example.lunaris.dto.response.ObservacaoResponseDTO;
 import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Observacao;
+import org.example.lunaris.repository.AlunoRepository;
 import org.example.lunaris.repository.ObservacaoRepository;
+import org.example.lunaris.repository.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,14 @@ import java.util.stream.Collectors;
 public class ObservacaoService {
     private final ObservacaoRepository repository;
 
-    public ObservacaoService(ObservacaoRepository repository) {
+    private final AlunoRepository alunoRepository;
+
+    private final ProfessorRepository professorRepository;
+
+    public ObservacaoService(ObservacaoRepository repository, AlunoRepository alunoRepository, ProfessorRepository professorRepository) {
         this.repository = repository;
+        this.alunoRepository = alunoRepository;
+        this.professorRepository = professorRepository;
     }
 
     private Observacao fromDTO(ObservacaoRequestDTO dto){
@@ -40,6 +48,12 @@ public class ObservacaoService {
 
     @Transactional
     public ObservacaoResponseDTO criar(ObservacaoRequestDTO dto){
+        alunoRepository.findById(dto.getIdAluno())
+                .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
+
+        professorRepository.findById(dto.getIdProfessor())
+                .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
+
         Observacao observacao = fromDTO(dto);
         return toDTO(repository.save(observacao));
     }
@@ -51,10 +65,16 @@ public class ObservacaoService {
                 .orElseThrow(() -> new NotFoundException("Observação não encontrada"));
 
         if(dto.getIdAluno() != null){
+            alunoRepository.findById(dto.getIdAluno())
+                    .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
+
             obs.setIdAluno(dto.getIdAluno());
         }
 
         if(dto.getIdProfessor() != null){
+            professorRepository.findById(dto.getIdProfessor())
+                    .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
+
             obs.setIdProfessor(dto.getIdProfessor());
         }
 

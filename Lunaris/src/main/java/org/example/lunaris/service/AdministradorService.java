@@ -46,7 +46,7 @@ public class AdministradorService {
         admin.setRole(adminRole);
 
         Administrador adminSalvo = administradorRepository.save(admin);
-        return new AdminResponseDTO(adminSalvo.getId(),adminSalvo.getNome());
+        return new AdminResponseDTO(adminSalvo.getId(),adminSalvo.getNome(), adminSalvo.getEmail());
 
     }
     public AdminResponseDTO atualizar(int id, AdminUpdateRequestDTO adminUpdateRequest){
@@ -55,29 +55,43 @@ public class AdministradorService {
         if (adminOptional.isEmpty()){
             throw new NotFoundException("Admin não encontrado");
         }
-        Administrador admin = new Administrador();
+        Administrador admin = adminOptional.get();
 
         if (adminUpdateRequest.getSenha() != null){
-            adminUpdateRequest.setSenha(passwordEncoder.encode(adminUpdateRequest.getSenha()));
+            admin.setSenha(passwordEncoder.encode(adminUpdateRequest.getSenha()));
         }
-        BeanUtils.copyProperties(adminUpdateRequest,admin);
+        if (adminUpdateRequest.getNome() != null){
+            admin.setNome(adminUpdateRequest.getNome());
+        }
+        if (adminUpdateRequest.getEmail() != null){
+            admin.setEmail(adminUpdateRequest.getEmail());
+        }
 
         Administrador adminSalvo = administradorRepository.save(admin);
 
-        return new AdminResponseDTO(adminSalvo.getId(),adminSalvo.getNome());
+        return new AdminResponseDTO(adminSalvo.getId(),adminSalvo.getNome(), adminSalvo.getEmail());
     }
     public List<AdminResponseDTO> listarAdmins(){
         return administradorRepository.findAll().stream().map(administrador ->
-                new AdminResponseDTO(administrador.getId(),administrador.getNome())).toList();
+                new AdminResponseDTO(administrador.getId(),administrador.getNome(), administrador.getEmail())).toList();
     }
 
-    public Administrador getById(Integer id){
+    public void deletarAdmin(int id){
         Optional<Administrador> administrador = administradorRepository.findById(id);
 
         if (administrador.isEmpty()){
             throw new NotFoundException("Admin Não foi encontrado");
         }
-        return administrador.get();
+        administradorRepository.delete(administrador.get());
     }
 
+    public AdminResponseDTO getById(Integer id){
+        Optional<Administrador> administrador = administradorRepository.findById(id);
+
+        if (administrador.isEmpty()){
+            throw new NotFoundException("Admin Não foi encontrado");
+        }
+        Administrador admin = new Administrador();
+        return new AdminResponseDTO(admin.getId(), admin.getNome(), admin.getEmail());
+    }
 }
