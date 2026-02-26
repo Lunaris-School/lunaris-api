@@ -9,6 +9,7 @@ public class BoletimResponseDTO {
 
     private Integer id;
     private Long alunoCpf;
+    private Integer turmaId;
     private String alunoNome;
     private Integer disciplinaId;
     private String disciplinaNome;
@@ -18,14 +19,23 @@ public class BoletimResponseDTO {
     public BoletimResponseDTO() {
 
     }
-    public BoletimResponseDTO(Integer id, Long alunoCpf, String alunoNome, Integer disciplinaId, String disciplinaNome, Integer mediaFinal, List<NotasResponseDTO> notas) {
+    public BoletimResponseDTO(Integer id, Long alunoCpf, Integer turmaId, String alunoNome, Integer disciplinaId, String disciplinaNome, Integer mediaFinal, List<NotasResponseDTO> notas) {
         this.id = id;
         this.alunoCpf = alunoCpf;
+        this.turmaId = turmaId;
         this.alunoNome = alunoNome;
         this.disciplinaId = disciplinaId;
         this.disciplinaNome = disciplinaNome;
         this.mediaFinal = mediaFinal;
         this.notas = notas;
+    }
+
+    public Integer getTurmaId() {
+        return turmaId;
+    }
+
+    public void setTurmaId(Integer turmaId) {
+        this.turmaId = turmaId;
     }
 
     public Integer getId() {

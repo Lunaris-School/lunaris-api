@@ -17,6 +17,9 @@ public class NotasRequestDTO {
     private Integer valorNota;
 
     @NotNull
+    private Integer valorNota2;
+
+    @NotNull
     private String tipoAvaliacao;
 
     @NotNull
@@ -31,12 +34,20 @@ public class NotasRequestDTO {
         this.dataLancamento = dataLancamento;
     }
 
-    public Integer getBoletimId() {
+    public @NotNull Integer getBoletimId() {
         return boletimId;
     }
 
-    public void setBoletimId(Integer boletimId) {
+    public void setBoletim_id(@NotNull Integer boletimId) {
         this.boletimId = boletimId;
+    }
+
+    public @NotNull Integer getValorNota2() {
+        return valorNota2;
+    }
+
+    public void setValorNota2(@NotNull Integer valorNota2) {
+        this.valorNota2 = valorNota2;
     }
 
     public Integer getValorNota() {

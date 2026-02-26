@@ -23,6 +23,12 @@ public class Notas {
     @Column(name = "valor_nota", nullable = false)
     private Integer valorNota;
 
+    @Column(name = "valor_nota2", nullable = false)
+    private Integer valorNota2;
+
+    @Column(name = "disciplina_id", nullable = false)
+    private Integer disciplinaId;
+
     @Column(name = "tipo_avaliacao", nullable = false)
     private String tipoAvaliacao;
 
@@ -51,6 +57,22 @@ public class Notas {
 
     public void setValorNota(Integer valorNota) {
         this.valorNota = valorNota;
+    }
+
+    public Integer getValorNota2() {
+        return valorNota2;
+    }
+
+    public void setValorNota2(Integer valorNota2) {
+        this.valorNota2 = valorNota2;
+    }
+
+    public Integer getDisciplinaId() {
+        return disciplinaId;
+    }
+
+    public void setDisciplinaId(Integer disciplinaId) {
+        this.disciplinaId = disciplinaId;
     }
 
     public String getTipoAvaliacao() {

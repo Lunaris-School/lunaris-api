@@ -30,6 +30,7 @@ public class NotasService {
         Notas nota = new Notas();
         nota.setBoletim(boletim);
         nota.setValorNota(dto.getValorNota());
+        nota.setValorNota2(dto.getValorNota2());
         nota.setTipoAvaliacao(dto.getTipoAvaliacao());
         nota.setDataLancamento(dto.getDataLancamento());
 
@@ -40,6 +41,7 @@ public class NotasService {
         return new NotasResponseDTO(
                 salva.getId(),
                 salva.getValorNota(),
+                salva.getValorNota2(),
                 salva.getTipoAvaliacao(),
                 salva.getDataLancamento()
         );

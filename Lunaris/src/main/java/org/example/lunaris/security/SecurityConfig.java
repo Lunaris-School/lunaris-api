@@ -15,25 +15,17 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain appFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers(
-                            "/swagger-ui/**",
-                            "/v3/api-docs/**",
-                            "/swagger-ui.html"
-                    ).permitAll();
-                    configurarRotasAdmin(authorize);
-                    configurarRotasAluno(authorize);
-                    configurarRotasProfessor(authorize);
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-                    authorize.anyRequest().authenticated();
-                })
-                .httpBasic(Customizer.withDefaults());
+        http
+                .csrf(csrf -> csrf.disable()) // desativa CSRF
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
+                );
 
         return http.build();
     }
+
 
     private void configurarRotasAdmin(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){
         authorize.requestMatchers("/api/admin/**").hasRole("ADMIN");

@@ -29,10 +29,10 @@ public class BoletimController implements BoletimContract {
     }
 
     @Override
-    @GetMapping("/aluno/{id}")
-    public ResponseEntity<List<BoletimResponseDTO>> buscarPorAluno(@PathVariable Integer id) {
+    @GetMapping("/aluno/{cpf}")
+    public ResponseEntity<List<BoletimResponseDTO>> buscarPorAluno(@PathVariable Long cpf) {
 
-        List<BoletimResponseDTO> lista = boletimService.buscarPorAluno(id);
+        List<BoletimResponseDTO> lista = boletimService.buscarPorAluno(cpf);
 
         if (lista.isEmpty()) {
             return ResponseEntity.noContent().build();

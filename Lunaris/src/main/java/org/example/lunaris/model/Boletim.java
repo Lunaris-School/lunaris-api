@@ -17,12 +17,12 @@ public class Boletim {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "aluno_id", nullable = false)
+    @JoinColumn(name = "aluno_cpf", nullable = false)
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn(name = "disciplina_id", nullable = false)
-    private Disciplina disciplina;
+    @JoinColumn(name = "turma_id", nullable = false)
+    private Turma turma;
 
     @Column(name = "media_final")
     private Integer mediaFinal;
@@ -46,12 +46,12 @@ public class Boletim {
         this.aluno = aluno;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
+    public Turma getTurma() {
+        return turma;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
     public Integer getMediaFinal() {

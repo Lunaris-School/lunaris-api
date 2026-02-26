@@ -43,9 +43,7 @@ public class TurmaService {
                     return new TurmaResponseDTO(
                             turma.getId(),
                             turma.getNome(),
-                            String.valueOf(turma.getAnoLetivo()),
-                            professor.getCpf(),
-                            professor.getNome()
+                            String.valueOf(turma.getAnoLetivo())
                     );
                 })
                 .toList();
@@ -57,29 +55,16 @@ public class TurmaService {
         if (turmaExistente != null){
             throw new DuplicateException("Turma já foi cadastrada");
         }
-
-        Professor professor = professorRepository.findById(dto.getProfessorCpf())
-                .orElseThrow(() ->
-                        new NotFoundException("Professor não encontrado"));
-
         Turma turma = new Turma();
         turma.setNome(dto.getNome());
         turma.setAnoLetivo(dto.getAnoLetivo());
 
         Turma turmaSalva = turmaRepository.save(turma);
 
-        TurmaProfessor vinculo = new TurmaProfessor();
-        vinculo.setTurma(turmaSalva);
-        vinculo.setProfessor(professor);
-
-        turmaProfessorRepository.save(vinculo);
-
         return new TurmaResponseDTO(
                 turmaSalva.getId(),
                 turmaSalva.getNome(),
-                String.valueOf(turmaSalva.getAnoLetivo()),
-                professor.getCpf(),
-                professor.getNome()
+                String.valueOf(turmaSalva.getAnoLetivo())
         );
     }
 

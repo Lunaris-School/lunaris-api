@@ -10,7 +10,6 @@ import org.hibernate.validator.constraints.br.CPF;
 public class AlunoRequestDTO {
 
     @NotNull
-    @CPF
     private Long cpf;
 
     @Size(max = 50)
@@ -24,19 +23,16 @@ public class AlunoRequestDTO {
     @Size(max = 500)
     private String senha;
 
-    private Integer roleId;
-
     private Integer generoId;
 
     public AlunoRequestDTO() {
     }
-    public AlunoRequestDTO(Long cpf, String nome, Long matricula, String email, String senha, Integer roleId, Integer generoId) {
+    public AlunoRequestDTO(Long cpf, String nome, Long matricula, String email, String senha, Integer generoId) {
         this.cpf = cpf;
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
         this.senha = senha;
-        this.roleId = roleId;
         this.generoId = generoId;
     }
 
@@ -78,14 +74,6 @@ public class AlunoRequestDTO {
 
     public void setSenha(@Size(max = 500) String senha) {
         this.senha = senha;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public Integer getGeneroId() {

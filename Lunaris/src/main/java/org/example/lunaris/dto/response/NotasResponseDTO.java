@@ -9,16 +9,27 @@ public class NotasResponseDTO {
 
     private Integer id;
     private Integer valorNota;
+    private Integer valorNota2;
     private String tipoAvaliacao;
     private LocalDate dataLancamento;
 
     public NotasResponseDTO() {
     }
-    public NotasResponseDTO(Integer id, Integer valorNota, String tipoAvaliacao, LocalDate dataLancamento) {
+    public NotasResponseDTO(Integer id, Integer valorNota, Integer valorNota2, String tipoAvaliacao, LocalDate dataLancamento) {
         this.id = id;
         this.valorNota = valorNota;
+        this.valorNota2 = valorNota2;
         this.tipoAvaliacao = tipoAvaliacao;
         this.dataLancamento = dataLancamento;
+    }
+
+    public String mediaNotas(int valorNota, int valorNota2){
+        int valor = (valorNota + valorNota2) / 2;
+
+        if (valor> 7){
+            return "Aprovado";
+        }
+        else return "Reprovado";
     }
 
     public Integer getId() {
@@ -53,3 +64,4 @@ public class NotasResponseDTO {
         this.dataLancamento = dataLancamento;
     }
 }
+

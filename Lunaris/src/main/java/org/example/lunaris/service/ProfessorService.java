@@ -59,7 +59,7 @@ public class ProfessorService {
         Role professorRole = roleRepository.findByNome(RoleEnum.PROFESSOR.name());
         professor.setRole(professorRole);
 
-        System.out.println(professor);
+
 
         return toDTO(professorRepository.save(professor));
     }

@@ -49,9 +49,9 @@ public class BoletimService {
         );
     }
 
-    public List<BoletimResponseDTO> buscarPorAluno(Integer alunoId) {
+    public List<BoletimResponseDTO> buscarPorAluno(long cpf) {
 
-        Aluno aluno = alunoRepository.findById(Long.valueOf(alunoId))
+        Aluno aluno = alunoRepository.findById(Long.valueOf(cpf))
                 .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
 
         return boletimRepository.findByAluno(aluno)

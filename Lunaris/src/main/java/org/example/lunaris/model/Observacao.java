@@ -13,21 +13,39 @@ public class Observacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Long idAluno;
+    private Long alunoCpf;
 
-    private Long idProfessor;
+    private Long professorCpf;
 
     @Column(length = 500)
     private String observacao;
 
     public Observacao() {
     }
-    public Observacao(Integer id, Long idAluno, Long idProfessor, String observacao) {
+
+    public Observacao(Integer id, Long alunoCpf, Long professorCpf, String observacao) {
         this.id = id;
-        this.idAluno = idAluno;
-        this.idProfessor = idProfessor;
+        this.alunoCpf = alunoCpf;
+        this.professorCpf = professorCpf;
         this.observacao = observacao;
     }
+
+    public Long getAlunoCpf() {
+        return alunoCpf;
+    }
+
+    public void setAlunoCpf(Long alunoCpf) {
+        this.alunoCpf = alunoCpf;
+    }
+
+    public Long getProfessorCpf() {
+        return professorCpf;
+    }
+
+    public void setProfessorCpf(Long professorCpf) {
+        this.professorCpf = professorCpf;
+    }
+
 
     public Integer getId() {
         return id;
@@ -35,22 +53,6 @@ public class Observacao {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Long getIdAluno() {
-        return idAluno;
-    }
-
-    public void setIdAluno(Long idAluno) {
-        this.idAluno = idAluno;
-    }
-
-    public Long getIdProfessor() {
-        return idProfessor;
-    }
-
-    public void setIdProfessor(Long idProfessor) {
-        this.idProfessor = idProfessor;
     }
 
     public String getObservacao() {
