@@ -6,6 +6,7 @@ import org.example.lunaris.contract.TurmaContract;
 import org.example.lunaris.dto.request.TurmaRequestDTO;
 import org.example.lunaris.dto.response.TurmaResponseDTO;
 import org.example.lunaris.service.TurmaService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,13 @@ public class TurmaController implements TurmaContract {
         }
 
         return ResponseEntity.ok(lista);
+    }
+    @Override
+    @GetMapping("/listarTodas")
+    public ResponseEntity<List<TurmaResponseDTO>> buscarTurmas() {
+        List<TurmaResponseDTO> lista = turmaService.listarTurmas();
+
+        return new ResponseEntity<>(lista, HttpStatus.FOUND);
     }
 
     @Override

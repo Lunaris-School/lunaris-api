@@ -2,18 +2,17 @@ package org.example.lunaris.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 public class PreCadastroResponseDTO {
     Integer id;
-    BigInteger alunoCpf;
+    Long alunoCpf;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime dataAutorizacao;
 
     public PreCadastroResponseDTO() {
     }
-    public PreCadastroResponseDTO(Integer id, BigInteger alunoCpf, LocalDateTime dataAutorizacao) {
+    public PreCadastroResponseDTO(Integer id, Long alunoCpf, LocalDateTime dataAutorizacao) {
         this.id = id;
         this.alunoCpf = alunoCpf;
         this.dataAutorizacao = dataAutorizacao;
@@ -27,11 +26,11 @@ public class PreCadastroResponseDTO {
         this.id = id;
     }
 
-    public BigInteger getAlunoCpf() {
+    public Long getAlunoCpf() {
         return alunoCpf;
     }
 
-    public void setAlunoCpf(BigInteger alunoCpf) {
+    public void setAlunoCpf(Long alunoCpf) {
         this.alunoCpf = alunoCpf;
     }
 

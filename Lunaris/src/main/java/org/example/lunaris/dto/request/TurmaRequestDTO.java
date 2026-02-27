@@ -16,19 +16,12 @@ public class TurmaRequestDTO {
     @Max(2026)
     private Integer anoLetivo;
 
-    @NotNull
-    private Long professorCpf;
-
-    @NotNull
-    private Integer disciplinaId;
 
     public TurmaRequestDTO() {
     }
-    public TurmaRequestDTO(String nome, Integer anoLetivo, Long professorCpf, Integer disciplinaId) {
+    public TurmaRequestDTO(String nome, Integer anoLetivo) {
         this.nome = nome;
         this.anoLetivo = anoLetivo;
-        this.professorCpf = professorCpf;
-        this.disciplinaId = disciplinaId;
     }
 
     public String getNome() {
@@ -47,19 +40,4 @@ public class TurmaRequestDTO {
         this.anoLetivo = anoLetivo;
     }
 
-    public @NotNull Long getProfessorCpf() {
-        return professorCpf;
-    }
-
-    public void setProfessorCpf(@NotNull Long professorCpf) {
-        this.professorCpf = professorCpf;
-    }
-
-    public Integer getDisciplinaId() {
-        return disciplinaId;
-    }
-
-    public void setDisciplinaId(Integer disciplinaId) {
-        this.disciplinaId = disciplinaId;
-    }
 }

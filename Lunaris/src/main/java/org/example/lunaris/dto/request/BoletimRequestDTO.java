@@ -9,31 +9,19 @@ import lombok.Setter;
 public class BoletimRequestDTO {
 
     @NotNull
-    private Integer alunoId;
-
-    @NotNull
-    private Integer disciplinaId;
+    private Long alunoCpf;
 
     public BoletimRequestDTO() {
     }
-    public BoletimRequestDTO(Integer alunoId, Integer disciplinaId) {
-        this.alunoId = alunoId;
-        this.disciplinaId = disciplinaId;
+    public BoletimRequestDTO(Long alunoCpf) {
+        this.alunoCpf = alunoCpf;
     }
 
-    public Integer getAlunoId() {
-        return alunoId;
+    public @NotNull Long getAlunoCpf() {
+        return alunoCpf;
     }
 
-    public void setAlunoId(Integer alunoId) {
-        this.alunoId = alunoId;
-    }
-
-    public Integer getDisciplinaId() {
-        return disciplinaId;
-    }
-
-    public void setDisciplinaId(Integer disciplinaId) {
-        this.disciplinaId = disciplinaId;
+    public void setAlunoCpf(@NotNull Long alunoCpf) {
+        this.alunoCpf = alunoCpf;
     }
 }

@@ -14,5 +14,5 @@ public interface BoletimContract {
     ResponseEntity<BoletimResponseDTO> criar(BoletimRequestDTO dto);
 
     @Operation(summary = "Buscar boletins por aluno")
-    ResponseEntity<List<BoletimResponseDTO>> buscarPorAluno(Integer id);
+    ResponseEntity<List<BoletimResponseDTO>> buscarPorAluno(Long cpf);
 }

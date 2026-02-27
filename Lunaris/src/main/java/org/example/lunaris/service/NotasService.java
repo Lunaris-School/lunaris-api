@@ -4,8 +4,10 @@ import org.example.lunaris.dto.request.NotasRequestDTO;
 import org.example.lunaris.dto.response.NotasResponseDTO;
 import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Boletim;
+import org.example.lunaris.model.Disciplina;
 import org.example.lunaris.model.Notas;
 import org.example.lunaris.repository.BoletimRepository;
+import org.example.lunaris.repository.DisciplinaRepository;
 import org.example.lunaris.repository.NotasRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,12 @@ public class NotasService {
 
     private final NotasRepository notasRepository;
     private final BoletimRepository boletimRepository;
+    private final DisciplinaRepository disciplinaRepository;
 
-    public NotasService(NotasRepository notasRepository, BoletimRepository boletimRepository) {
+    public NotasService(NotasRepository notasRepository, BoletimRepository boletimRepository, DisciplinaRepository disciplinaRepository) {
         this.notasRepository = notasRepository;
         this.boletimRepository = boletimRepository;
+        this.disciplinaRepository = disciplinaRepository;
     }
 
     public NotasResponseDTO lancarNota(NotasRequestDTO dto) {
@@ -27,9 +31,14 @@ public class NotasService {
         Boletim boletim = boletimRepository.findById(dto.getBoletimId())
                 .orElseThrow(() -> new NotFoundException("Boletim não encontrado"));
 
+        Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
+                .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
+
         Notas nota = new Notas();
         nota.setBoletim(boletim);
         nota.setValorNota(dto.getValorNota());
+        nota.setValorNota2(dto.getValorNota2());
+        nota.setDisciplina(disciplina);
         nota.setTipoAvaliacao(dto.getTipoAvaliacao());
         nota.setDataLancamento(dto.getDataLancamento());
 
@@ -40,7 +49,10 @@ public class NotasService {
         return new NotasResponseDTO(
                 salva.getId(),
                 salva.getValorNota(),
+                salva.getValorNota2(),
                 salva.getTipoAvaliacao(),
+                salva.getDisciplina().getId(),
+                salva.getDisciplina().getNome(),
                 salva.getDataLancamento()
         );
     }
@@ -49,8 +61,8 @@ public class NotasService {
 
         List<Notas> notas = notasRepository.findByBoletimId(boletim.getId());
 
-        int soma = notas.stream().mapToInt(Notas::getValorNota).sum();
-        int media = notas.isEmpty() ? 0 : soma / notas.size();
+        double soma = notas.stream().mapToDouble(Notas::getValorNota).sum();
+        double media = notas.isEmpty() ? 0 : soma / notas.size();
 
         boletim.setMediaFinal(media);
         boletimRepository.save(boletim);

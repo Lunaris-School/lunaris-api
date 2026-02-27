@@ -46,6 +46,7 @@ public class SecurityConfig {
         authorize.requestMatchers("/genero/inserir").hasRole("ADMIN");
         authorize.requestMatchers("/genero/atualizar/").hasRole("ADMIN");
         authorize.requestMatchers("/api/professor/{id}").hasRole("ADMIN");
+        authorize.requestMatchers("/v1/turma/listarTodas").hasAnyRole("ADMIN","PROFESSOR");
 
     }
     private void configurarRotasAluno(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){

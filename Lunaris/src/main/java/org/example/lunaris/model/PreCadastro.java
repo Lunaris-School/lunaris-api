@@ -3,9 +3,7 @@ package org.example.lunaris.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.TimeZone;
 
 @Entity
 @Table(name = "pre_cadastro")
@@ -19,7 +17,7 @@ public class PreCadastro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "aluno_cpf")
-    private BigInteger alunoCpf;
+    private Long alunoCpf;
     @Column(name = "data_autorizacao")
     private LocalDateTime dataAutorizacao;
 
@@ -31,11 +29,11 @@ public class PreCadastro {
         this.id = id;
     }
 
-    public BigInteger getAlunoCpf() {
+    public Long getAlunoCpf() {
         return alunoCpf;
     }
 
-    public void setAlunoCpf(BigInteger alunoCpf) {
+    public void setAlunoCpf(Long alunoCpf) {
         this.alunoCpf = alunoCpf;
     }
 

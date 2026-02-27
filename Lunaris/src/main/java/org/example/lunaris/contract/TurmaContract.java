@@ -25,6 +25,15 @@ public interface TurmaContract {
     })
     ResponseEntity<List<TurmaResponseDTO>> buscarPorTurma(@PathVariable Long cpf);
 
+    @Operation(summary = "Retorna todas as turmas",
+            description = "Lista todas as turmas cadastradas no banco")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de turmas retornada com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TurmaResponseDTO.class)))
+    })
+    ResponseEntity<List<TurmaResponseDTO>> buscarTurmas();
+
     @Operation(summary = "Criar uma nova turma",
             description = "Cria uma nova turma no sistema")
     ResponseEntity<TurmaResponseDTO> salvarTurma(TurmaRequestDTO requestDTO);
