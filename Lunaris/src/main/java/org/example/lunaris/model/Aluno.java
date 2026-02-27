@@ -32,7 +32,7 @@ public class Aluno {
     private Turma turma;
 
     public Aluno() {}
-    public Aluno(Long cpf, String nome, Long matricula, String email, String senha, Role role, Integer generoId) {
+    public Aluno(Long cpf, String nome, Long matricula, String email, String senha, Role role, Integer generoId, Turma turma) {
         this.cpf = cpf;
         this.nome = nome;
         this.matricula = matricula;
@@ -40,6 +40,7 @@ public class Aluno {
         this.senha = senha;
         this.role = role;
         this.generoId = generoId;
+        this.turma = turma;
     }
 
     public Long getCpf() {
@@ -96,5 +97,13 @@ public class Aluno {
 
     public void setGeneroId(Integer generoId) {
         this.generoId = generoId;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 }

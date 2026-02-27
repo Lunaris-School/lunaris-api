@@ -25,7 +25,7 @@ public class Boletim {
     private Turma turma;
 
     @Column(name = "media_final")
-    private Integer mediaFinal;
+    private Double mediaFinal;
 
     @OneToMany(mappedBy = "boletim", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notas> notas;
@@ -54,11 +54,11 @@ public class Boletim {
         this.turma = turma;
     }
 
-    public Integer getMediaFinal() {
+    public Double getMediaFinal() {
         return mediaFinal;
     }
 
-    public void setMediaFinal(Integer mediaFinal) {
+    public void setMediaFinal(Double mediaFinal) {
         this.mediaFinal = mediaFinal;
     }
 

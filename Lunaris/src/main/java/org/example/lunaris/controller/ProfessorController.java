@@ -33,7 +33,7 @@ public class ProfessorController implements ProfessorContract {
     }
     @Override
     @PutMapping("/atualizar/{cpf}")
-    public ResponseEntity<ProfessorResponseDTO> atualizarProfessor(@PathVariable Long cpf, @RequestBody @Valid ProfessorPatchRequestDTO requestDTO) {
+    public ResponseEntity<ProfessorResponseDTO> atualizarProfessor(@PathVariable Long cpf, @RequestBody @Valid ProfessorRequestDTO requestDTO) {
             return ResponseEntity.ok(professorService.atualizarProfessor(cpf, requestDTO));
     }
     @Override

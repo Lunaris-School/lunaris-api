@@ -9,13 +9,19 @@ import lombok.Setter;
 public class BoletimRequestDTO {
 
     @NotNull
-    private Integer alunoCpf;
+    private Long alunoCpf;
 
-    public @NotNull Integer getAlunoCpf() {
+    public BoletimRequestDTO() {
+    }
+    public BoletimRequestDTO(Long alunoCpf) {
+        this.alunoCpf = alunoCpf;
+    }
+
+    public @NotNull Long getAlunoCpf() {
         return alunoCpf;
     }
 
-    public void setAlunoCpf(@NotNull Integer alunoCpf) {
+    public void setAlunoCpf(@NotNull Long alunoCpf) {
         this.alunoCpf = alunoCpf;
     }
 }

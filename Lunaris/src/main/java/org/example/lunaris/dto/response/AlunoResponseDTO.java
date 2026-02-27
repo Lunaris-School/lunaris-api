@@ -12,16 +12,18 @@ public class AlunoResponseDTO {
     private String email;
     private Integer roleId;
     private Integer generoId;
+    private Integer turmaId;
 
     public AlunoResponseDTO() {}
 
-    public AlunoResponseDTO(Long cpf, String nome, Long matricula, String email, Integer roleId, Integer generoId) {
+    public AlunoResponseDTO(Long cpf, String nome, Long matricula, String email, Integer roleId, Integer generoId, Integer turmaId) {
         this.cpf = cpf;
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
         this.roleId = roleId;
         this.generoId = generoId;
+        this.turmaId = turmaId;
     }
 
     public Long getCpf() {
@@ -70,5 +72,13 @@ public class AlunoResponseDTO {
 
     public void setGeneroId(Integer generoId) {
         this.generoId = generoId;
+    }
+
+    public Integer getTurmaId() {
+        return turmaId;
+    }
+
+    public void setTurmaId(Integer turmaId) {
+        this.turmaId = turmaId;
     }
 }

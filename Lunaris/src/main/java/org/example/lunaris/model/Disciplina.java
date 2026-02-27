@@ -3,10 +3,11 @@ package org.example.lunaris.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "disciplina")
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Getter
 @Setter
@@ -17,6 +18,18 @@ public class Disciplina {
     private String nome;
     @Column(name = "url_photo")
     private String urlFoto;
+
+    @OneToMany(mappedBy = "disciplina")
+    private List<Notas> notas = new ArrayList<>();
+
+    public Disciplina() {
+    }
+    public Disciplina(Integer id, String nome, String urlFoto, List<Notas> notas) {
+        this.id = id;
+        this.nome = nome;
+        this.urlFoto = urlFoto;
+        this.notas = notas;
+    }
 
     public Integer getId() {
         return id;
@@ -40,5 +53,13 @@ public class Disciplina {
 
     public void setUrlFoto(String urlFoto) {
         this.urlFoto = urlFoto;
+    }
+
+    public List<Notas> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Notas> notas) {
+        this.notas = notas;
     }
 }

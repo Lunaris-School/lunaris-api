@@ -12,6 +12,10 @@ import java.util.Optional;
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
     @Query("""
+          SELECT p FROM Professor p WHERE p.cpf = :cpf
+           """)
+    Professor buscaPorCpf(@Param("cpf") Long cpf);
+    @Query("""
         SELECT a
         FROM Aluno a
         JOIN a.turma t

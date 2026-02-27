@@ -5,6 +5,7 @@ import org.example.lunaris.Enum.RoleEnum;
 import org.example.lunaris.dto.request.ProfessorPatchRequestDTO;
 import org.example.lunaris.dto.request.ProfessorRequestDTO;
 import org.example.lunaris.dto.response.ProfessorResponseDTO;
+import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Aluno;
 import org.example.lunaris.model.Disciplina;
@@ -44,6 +45,11 @@ public class ProfessorService {
     }
 
     public ProfessorResponseDTO salvarProfessor(ProfessorRequestDTO dto) {
+        Professor professorExistente = professorRepository.buscaPorCpf(dto.getCpf());
+
+        if (professorExistente != null){
+            throw new DuplicateException("Professor já foi cadastrado");
+        }
 
         Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
                 .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
@@ -59,12 +65,10 @@ public class ProfessorService {
         Role professorRole = roleRepository.findByNome(RoleEnum.PROFESSOR.name());
         professor.setRole(professorRole);
 
-
-
         return toDTO(professorRepository.save(professor));
     }
 
-    public ProfessorResponseDTO atualizarProfessor(Long cpf, ProfessorPatchRequestDTO dto) {
+    public ProfessorResponseDTO atualizarProfessor(Long cpf, ProfessorRequestDTO dto) {
 
         Professor professor = findProfessor(cpf);
 

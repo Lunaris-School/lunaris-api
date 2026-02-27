@@ -9,23 +9,21 @@ public class BoletimResponseDTO {
 
     private Integer id;
     private Long alunoCpf;
-    private Integer turmaId;
     private String alunoNome;
-    private Integer disciplinaId;
-    private String disciplinaNome;
-    private Integer mediaFinal;
+    private Integer turmaId;
+    private String turmaNome;
+    private Double mediaFinal;
     private List<NotasResponseDTO> notas;
 
     public BoletimResponseDTO() {
 
     }
-    public BoletimResponseDTO(Integer id, Long alunoCpf, Integer turmaId, String alunoNome, Integer disciplinaId, String disciplinaNome, Integer mediaFinal, List<NotasResponseDTO> notas) {
+    public BoletimResponseDTO(Integer id, Long alunoCpf, String alunoNome, Integer turmaId, String turmaNome, Double mediaFinal, List<NotasResponseDTO> notas) {
         this.id = id;
         this.alunoCpf = alunoCpf;
-        this.turmaId = turmaId;
         this.alunoNome = alunoNome;
-        this.disciplinaId = disciplinaId;
-        this.disciplinaNome = disciplinaNome;
+        this.turmaId = turmaId;
+        this.turmaNome = turmaNome;
         this.mediaFinal = mediaFinal;
         this.notas = notas;
     }
@@ -62,27 +60,11 @@ public class BoletimResponseDTO {
         this.alunoNome = alunoNome;
     }
 
-    public Integer getDisciplinaId() {
-        return disciplinaId;
-    }
-
-    public void setDisciplinaId(Integer disciplinaId) {
-        this.disciplinaId = disciplinaId;
-    }
-
-    public String getDisciplinaNome() {
-        return disciplinaNome;
-    }
-
-    public void setDisciplinaNome(String disciplinaNome) {
-        this.disciplinaNome = disciplinaNome;
-    }
-
-    public Integer getMediaFinal() {
+    public Double getMediaFinal() {
         return mediaFinal;
     }
 
-    public void setMediaFinal(Integer mediaFinal) {
+    public void setMediaFinal(Double mediaFinal) {
         this.mediaFinal = mediaFinal;
     }
 

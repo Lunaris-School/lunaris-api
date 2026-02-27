@@ -40,8 +40,8 @@ public class ObservacaoService {
     private ObservacaoResponseDTO toDTO(Observacao obs){
         return new ObservacaoResponseDTO(
                 obs.getId(),
-                obs.getIdAluno(),
-                obs.getIdProfessor(),
+                obs.getAlunoCpf(),
+                obs.getProfessorCpf(),
                 obs.getObservacao()
         );
     }
@@ -68,14 +68,14 @@ public class ObservacaoService {
             alunoRepository.findById(dto.getIdAluno())
                     .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
 
-            obs.setIdAluno(dto.getIdAluno());
+            obs.setAlunoCpf(dto.getIdAluno());
         }
 
         if(dto.getIdProfessor() != null){
             professorRepository.findById(dto.getIdProfessor())
                     .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
 
-            obs.setIdProfessor(dto.getIdProfessor());
+            obs.setProfessorCpf(dto.getIdProfessor());
         }
 
         if(dto.getObservacao() != null){
@@ -90,14 +90,14 @@ public class ObservacaoService {
     }
 
     public List<ObservacaoResponseDTO> buscarPorIdAluno(Long idAluno) {
-        return repository.findByIdAluno(idAluno)
+        return repository.findByAlunoCpf(idAluno)
                 .stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
     public List<ObservacaoResponseDTO> buscarPorIdProfessor(Long idProfessor) {
-        return repository.findByIdProfessor(idProfessor)
+        return repository.findByProfessorCpf(idProfessor)
                 .stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());

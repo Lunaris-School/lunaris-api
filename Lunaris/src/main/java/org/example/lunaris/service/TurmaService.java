@@ -78,4 +78,8 @@ public class TurmaService {
 
         turmaRepository.delete(turma);
     }
+    public List<TurmaResponseDTO> listarTurmas(){
+        return turmaRepository.findAll().stream().map(turma ->
+                new TurmaResponseDTO(turma.getId(),turma.getNome(),String.valueOf(turma.getAnoLetivo()))).toList();
+    }
 }

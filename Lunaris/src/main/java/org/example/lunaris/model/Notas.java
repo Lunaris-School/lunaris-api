@@ -21,13 +21,14 @@ public class Notas {
     private Boletim boletim;
 
     @Column(name = "valor_nota", nullable = false)
-    private Integer valorNota;
+    private Double valorNota;
 
     @Column(name = "valor_nota2", nullable = false)
-    private Integer valorNota2;
+    private Double valorNota2;
 
-    @Column(name = "disciplina_id", nullable = false)
-    private Integer disciplinaId;
+    @ManyToOne
+    @JoinColumn(name = "disciplina_id")
+    private Disciplina disciplina;
 
     @Column(name = "tipo_avaliacao", nullable = false)
     private String tipoAvaliacao;
@@ -51,28 +52,28 @@ public class Notas {
         this.boletim = boletim;
     }
 
-    public Integer getValorNota() {
+    public Double getValorNota() {
         return valorNota;
     }
 
-    public void setValorNota(Integer valorNota) {
+    public void setValorNota(Double valorNota) {
         this.valorNota = valorNota;
     }
 
-    public Integer getValorNota2() {
+    public Double getValorNota2() {
         return valorNota2;
     }
 
-    public void setValorNota2(Integer valorNota2) {
+    public void setValorNota2(Double valorNota2) {
         this.valorNota2 = valorNota2;
     }
 
-    public Integer getDisciplinaId() {
-        return disciplinaId;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setDisciplinaId(Integer disciplinaId) {
-        this.disciplinaId = disciplinaId;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     public String getTipoAvaliacao() {

@@ -15,17 +15,25 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+    public SecurityFilterChain appFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // desativa CSRF
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
-                );
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers(
+                            "/swagger-ui/**",
+                            "/v3/api-docs/**",
+                            "/swagger-ui.html"
+                    ).permitAll();
+                    configurarRotasAdmin(authorize);
+                    configurarRotasAluno(authorize);
+                    configurarRotasProfessor(authorize);
+
+                    authorize.anyRequest().authenticated();
+                })
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
-
 
     private void configurarRotasAdmin(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){
         authorize.requestMatchers("/api/admin/**").hasRole("ADMIN");
@@ -38,6 +46,7 @@ public class SecurityConfig {
         authorize.requestMatchers("/genero/inserir").hasRole("ADMIN");
         authorize.requestMatchers("/genero/atualizar/").hasRole("ADMIN");
         authorize.requestMatchers("/api/professor/{id}").hasRole("ADMIN");
+        authorize.requestMatchers("/v1/turma/listarTodas").hasAnyRole("ADMIN","PROFESSOR");
 
     }
     private void configurarRotasAluno(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){

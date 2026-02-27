@@ -44,7 +44,7 @@ public interface ProfessorContract {
                             schema = @Schema(implementation = ProfessorResponseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Professor não encontrado")
     })
-    ResponseEntity<ProfessorResponseDTO> atualizarProfessor(Long cpf, ProfessorPatchRequestDTO requestDTO);
+    ResponseEntity<ProfessorResponseDTO> atualizarProfessor(Long cpf, ProfessorRequestDTO requestDTO);
 
     @Operation(summary = "Atualiza parcialmente um professor",
             description = "Atualiza parcialmente os dados de um professor")
