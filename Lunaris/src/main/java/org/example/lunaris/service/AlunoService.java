@@ -3,6 +3,7 @@ package org.example.lunaris.service;
 
 import jakarta.transaction.Transactional;
 import org.example.lunaris.Enum.RoleEnum;
+import org.example.lunaris.dto.request.AlunoPatchRequestDTO;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
@@ -98,7 +99,7 @@ public class AlunoService {
     }
 
     @Transactional
-    public AlunoResponseDTO atualizarAluno(Long cpf, AlunoRequestDTO dto){
+    public AlunoResponseDTO atualizarAluno(Long cpf, AlunoPatchRequestDTO dto){
         Aluno aluno = repository.buscaPorCpf(cpf);
         if(aluno == null){
             throw new NotFoundException("Aluno não encontrado");
@@ -107,7 +108,6 @@ public class AlunoService {
         if(dto.getNome() != null) aluno.setNome(dto.getNome());
         if(dto.getEmail() != null) aluno.setEmail(dto.getEmail());
         if(dto.getSenha() != null) aluno.setSenha(dto.getSenha());
-        if(dto.getMatricula() != null) aluno.setMatricula(dto.getMatricula());
         if(dto.getGeneroId() != null) {
             Genero genero = generoRepository.buscaPorId(dto.getGeneroId());
             if(genero == null){

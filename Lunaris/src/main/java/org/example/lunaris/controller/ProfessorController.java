@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.example.lunaris.contract.ProfessorContract;
 import org.example.lunaris.dto.request.ProfessorPatchRequestDTO;
 import org.example.lunaris.dto.request.ProfessorRequestDTO;
+import org.example.lunaris.dto.request.ProfessorUpdateRequestDTO;
 import org.example.lunaris.dto.response.ProfessorResponseDTO;
 import org.example.lunaris.model.Aluno;
 import org.example.lunaris.service.ProfessorService;
@@ -20,6 +21,17 @@ public class ProfessorController implements ProfessorContract {
     public ProfessorController(ProfessorService professorService) {
         this.professorService = professorService;
     }
+    @Override
+    @GetMapping
+    public ResponseEntity<List<ProfessorResponseDTO>> listarTodosProfessores() {
+        List<ProfessorResponseDTO> professores = professorService.listarTodosProfessores();
+
+        if (professores.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(professores);
+    }
 
     @Override
     @GetMapping("/{cpf}")
@@ -33,7 +45,7 @@ public class ProfessorController implements ProfessorContract {
     }
     @Override
     @PutMapping("/atualizar/{cpf}")
-    public ResponseEntity<ProfessorResponseDTO> atualizarProfessor(@PathVariable Long cpf, @RequestBody @Valid ProfessorRequestDTO requestDTO) {
+    public ResponseEntity<ProfessorResponseDTO> atualizarProfessor(@PathVariable Long cpf, @RequestBody @Valid ProfessorUpdateRequestDTO requestDTO) {
             return ResponseEntity.ok(professorService.atualizarProfessor(cpf, requestDTO));
     }
     @Override

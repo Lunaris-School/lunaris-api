@@ -1,23 +1,17 @@
 package org.example.lunaris.dto.request;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDate;
 
-@Getter
-@Setter
-public class ProfessorPatchRequestDTO {
-
+public class ProfessorUpdateRequestDTO {
     private String nome;
     private String email;
     private String senha;
     private Integer disciplinaId;
 
-    public ProfessorPatchRequestDTO() {
+    public ProfessorUpdateRequestDTO() {
     }
 
-    public ProfessorPatchRequestDTO( String nome, String email, String senha, int disciplinaId) {
+    public ProfessorUpdateRequestDTO( String nome, String email, String senha, int disciplinaId) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;

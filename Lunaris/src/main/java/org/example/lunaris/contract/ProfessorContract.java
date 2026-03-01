@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.lunaris.dto.request.ProfessorPatchRequestDTO;
 import org.example.lunaris.dto.request.ProfessorRequestDTO;
+import org.example.lunaris.dto.request.ProfessorUpdateRequestDTO;
 import org.example.lunaris.dto.response.ProfessorResponseDTO;
 import org.example.lunaris.model.Aluno;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,15 @@ import java.util.List;
 
 @Tag(name = "Professor Controller", description = "Gerenciamento de professores")
 public interface ProfessorContract {
+    @Operation(summary = "Retorna todos os professores",
+            description = "Lista todos os professores cadastrados no sistema")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de professores retornada com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProfessorResponseDTO.class))),
+            @ApiResponse(responseCode = "204", description = "Nenhum professor encontrado")
+    })
+    ResponseEntity<List<ProfessorResponseDTO>> listarTodosProfessores();
         @Operation(summary = "Retorna um professor por ID",
                 description = "Busca um professor específico pelo seu ID")
         @ApiResponses({
@@ -44,7 +54,7 @@ public interface ProfessorContract {
                             schema = @Schema(implementation = ProfessorResponseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Professor não encontrado")
     })
-    ResponseEntity<ProfessorResponseDTO> atualizarProfessor(Long cpf, ProfessorRequestDTO requestDTO);
+    ResponseEntity<ProfessorResponseDTO> atualizarProfessor(Long cpf, ProfessorUpdateRequestDTO requestDTO);
 
     @Operation(summary = "Atualiza parcialmente um professor",
             description = "Atualiza parcialmente os dados de um professor")

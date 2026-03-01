@@ -2,6 +2,7 @@ package org.example.lunaris.controller;
 
 
 import org.example.lunaris.contract.AlunoContract;
+import org.example.lunaris.dto.request.AlunoPatchRequestDTO;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
@@ -47,7 +48,7 @@ public class AlunoController implements AlunoContract {
     @Override
     @PutMapping("/atualizar/{cpf}")
     public ResponseEntity<AlunoResponseDTO> atualizarAluno(@PathVariable Long cpf,
-                                                           @RequestBody AlunoRequestDTO dto){
+                                                           @RequestBody AlunoPatchRequestDTO dto){
         return ResponseEntity.ok(alunoService.atualizarAluno(cpf, dto));
     }
 }

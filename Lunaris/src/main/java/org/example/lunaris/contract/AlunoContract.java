@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.lunaris.dto.request.AlunoPatchRequestDTO;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
@@ -64,5 +65,5 @@ public interface AlunoContract {
                             schema = @Schema(implementation = AlunoResponseDTO.class))),
             @ApiResponse(responseCode = "404", description = "Aluno não encontrado")
     })
-    ResponseEntity<AlunoResponseDTO> atualizarAluno(Long cpf, AlunoRequestDTO dto);
+    ResponseEntity<AlunoResponseDTO> atualizarAluno(Long cpf, AlunoPatchRequestDTO dto);
 }

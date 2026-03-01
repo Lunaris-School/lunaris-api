@@ -4,6 +4,7 @@ package org.example.lunaris.service;
 import org.example.lunaris.Enum.RoleEnum;
 import org.example.lunaris.dto.request.ProfessorPatchRequestDTO;
 import org.example.lunaris.dto.request.ProfessorRequestDTO;
+import org.example.lunaris.dto.request.ProfessorUpdateRequestDTO;
 import org.example.lunaris.dto.response.ProfessorResponseDTO;
 import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.exception.NotFoundException;
@@ -38,6 +39,12 @@ public class ProfessorService {
         this.turmaProfessorRepository = turmaProfessorRepository;
         this.passwordEncoder = passwordEncoder;
     }
+    public List<ProfessorResponseDTO> listarTodosProfessores() {
+        return professorRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
 
     public ProfessorResponseDTO getProfessorById(Long cpf) {
         Professor professor = findProfessor(cpf);
@@ -68,7 +75,7 @@ public class ProfessorService {
         return toDTO(professorRepository.save(professor));
     }
 
-    public ProfessorResponseDTO atualizarProfessor(Long cpf, ProfessorRequestDTO dto) {
+    public ProfessorResponseDTO atualizarProfessor(Long cpf, ProfessorUpdateRequestDTO dto) {
 
         Professor professor = findProfessor(cpf);
 
@@ -79,7 +86,6 @@ public class ProfessorService {
         professor.setEmail(dto.getEmail());
         professor.setSenha(passwordEncoder.encode(dto.getSenha()));
         professor.setDisciplina(disciplina);
-        professor.setDataContratacao(dto.getDataContratacao());
 
 
         return toDTO(professorRepository.save(professor));
@@ -91,7 +97,6 @@ public class ProfessorService {
         if (dto.getNome() != null) professor.setNome(dto.getNome());
         if (dto.getEmail() != null) professor.setEmail(dto.getEmail());
         if (dto.getSenha() != null) professor.setSenha(dto.getSenha());
-        if (dto.getDataContratacao() != null) professor.setDataContratacao(dto.getDataContratacao());
 
         if (dto.getDisciplinaId() != null) {
             Disciplina disciplina = disciplinaRepository.findById(dto.getDisciplinaId())
