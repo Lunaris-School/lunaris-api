@@ -17,4 +17,4 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Comando para rodar o projeto
-CMD ["sh", "-c", "java -Dserver.port=${DB_PORT} -jar target/*.jar"]
+CMD ["sh", "-c", "java -Dserver.port=${PORT} -jar target/*.jar"]
