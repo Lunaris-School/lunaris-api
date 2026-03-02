@@ -13,8 +13,10 @@ public class Observacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="aluno_cpf")
     private Long alunoCpf;
 
+    @Column(name = "professor_cpf")
     private Long professorCpf;
 
     @Column(length = 500)

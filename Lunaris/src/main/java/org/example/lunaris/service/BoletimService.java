@@ -1,6 +1,5 @@
 package org.example.lunaris.service;
 
-import org.example.lunaris.Enum.AprovacaoEnum;
 import org.example.lunaris.dto.request.BoletimRequestDTO;
 import org.example.lunaris.dto.response.BoletimResponseDTO;
 import org.example.lunaris.dto.response.NotasResponseDTO;

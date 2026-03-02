@@ -6,32 +6,32 @@ import lombok.*;
 @Setter
 public class ObservacaoRequestDTO {
 
-    private Long idAluno;
-    private Long idProfessor;
+    private Long alunoCpf;
+    private Long professorCpf;
     private String observacao;
 
     public ObservacaoRequestDTO() {
     }
-    public ObservacaoRequestDTO(Long idAluno, Long idProfessor, String observacao) {
-        this.idAluno = idAluno;
-        this.idProfessor = idProfessor;
+    public ObservacaoRequestDTO(Long alunoCpf, Long professorCpf, String observacao) {
+        this.alunoCpf = alunoCpf;
+        this.professorCpf = professorCpf;
         this.observacao = observacao;
     }
 
-    public Long getIdAluno() {
-        return idAluno;
+    public Long getAlunoCpf() {
+        return alunoCpf;
     }
 
-    public void setIdAluno(Long idAluno) {
-        this.idAluno = idAluno;
+    public void setAlunoCpf(Long alunoCpf) {
+        this.alunoCpf = alunoCpf;
     }
 
-    public Long getIdProfessor() {
-        return idProfessor;
+    public Long getProfessorCpf() {
+        return professorCpf;
     }
 
-    public void setIdProfessor(Long idProfessor) {
-        this.idProfessor = idProfessor;
+    public void setProfessorCpf(Long professorCpf) {
+        this.professorCpf = professorCpf;
     }
 
     public String getObservacao() {
