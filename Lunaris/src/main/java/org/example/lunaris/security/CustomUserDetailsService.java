@@ -50,4 +50,21 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return User.builder().username(email).password(password).roles(role).build();
     }
+
+    public Long buscarIdUsuario(String email){
+        Optional<Aluno> aluno = alunoRepository.findByEmail(email);
+        if (aluno.isPresent()){
+            return aluno.get().getCpf();
+        }
+        Optional<Administrador> admin = Optional.ofNullable(administradorRepository.findByEmail(email));
+        if (admin.isPresent()){
+            return Long.valueOf(admin.get().getId());
+
+        }
+        Optional<Professor> professor = professorRepository.findByEmail(email);
+        if (professor.isPresent()){
+            return professor.get().getCpf();
+        }
+        throw new NotFoundException("Usuário não encontrado");
+    }
 }
