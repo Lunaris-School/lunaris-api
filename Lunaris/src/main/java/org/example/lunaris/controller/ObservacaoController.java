@@ -37,18 +37,18 @@ public class ObservacaoController implements ObservacaoContract {
         return ResponseEntity.ok(service.atualizar(id, dto));
     }
     @Override
-    @GetMapping("/buscar/aluno/{idAluno}")
+    @GetMapping("/buscar/aluno/{alunoCpf}")
     public ResponseEntity<List<ObservacaoResponseDTO>> buscarPorAluno(
-            @PathVariable Long idAluno) {
+            @PathVariable Long alunoCpf) {
 
-        return ResponseEntity.ok(service.buscarPorIdAluno(idAluno));
+        return ResponseEntity.ok(service.buscarPorIdAluno(alunoCpf));
     }
 
     @Override
-    @GetMapping("/buscar/professor/{idProfessor}")
+    @GetMapping("/buscar/professor/{professorCpf}")
     public ResponseEntity<List<ObservacaoResponseDTO>> buscarPorProfessor(
-            @PathVariable Long idProfessor) {
+            @PathVariable Long professorCpf) {
 
-        return ResponseEntity.ok(service.buscarPorIdProfessor(idProfessor));
+        return ResponseEntity.ok(service.buscarPorIdProfessor(professorCpf));
     }
 }

@@ -10,7 +10,6 @@ import org.example.lunaris.model.Administrador;
 import org.example.lunaris.model.Role;
 import org.example.lunaris.repository.AdministradorRepository;
 import org.example.lunaris.repository.RoleRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -31,8 +31,8 @@ public class ObservacaoService {
     private Observacao fromDTO(ObservacaoRequestDTO dto){
         return new Observacao(
                 null,
-                dto.getIdAluno(),
-                dto.getIdProfessor(),
+                dto.getAlunoCpf(),
+                dto.getProfessorCpf(),
                 dto.getObservacao()
         );
     }
@@ -48,10 +48,10 @@ public class ObservacaoService {
 
     @Transactional
     public ObservacaoResponseDTO criar(ObservacaoRequestDTO dto){
-        alunoRepository.findById(dto.getIdAluno())
+        alunoRepository.findById(dto.getAlunoCpf())
                 .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
 
-        professorRepository.findById(dto.getIdProfessor())
+        professorRepository.findById(dto.getProfessorCpf())
                 .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
 
         Observacao observacao = fromDTO(dto);
@@ -64,18 +64,18 @@ public class ObservacaoService {
         Observacao obs = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Observação não encontrada"));
 
-        if(dto.getIdAluno() != null){
-            alunoRepository.findById(dto.getIdAluno())
+        if(dto.getAlunoCpf() != null){
+            alunoRepository.findById(dto.getAlunoCpf())
                     .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
 
-            obs.setAlunoCpf(dto.getIdAluno());
+            obs.setAlunoCpf(dto.getAlunoCpf());
         }
 
-        if(dto.getIdProfessor() != null){
-            professorRepository.findById(dto.getIdProfessor())
+        if(dto.getProfessorCpf() != null){
+            professorRepository.findById(dto.getProfessorCpf())
                     .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
 
-            obs.setProfessorCpf(dto.getIdProfessor());
+            obs.setProfessorCpf(dto.getProfessorCpf());
         }
 
         if(dto.getObservacao() != null){

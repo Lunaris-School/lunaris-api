@@ -7,16 +7,16 @@ import lombok.*;
 public class ObservacaoResponseDTO {
 
     private Integer id;
-    private Long idAluno;
-    private Long idProfessor;
+    private Long alunoCpf;
+    private Long professorCpf;
     private String observacao;
 
     public ObservacaoResponseDTO() {
     }
-    public ObservacaoResponseDTO(Integer id, Long idAluno, Long idProfessor, String observacao) {
+    public ObservacaoResponseDTO(Integer id, Long aluno, Long professorCpf, String observacao) {
         this.id = id;
-        this.idAluno = idAluno;
-        this.idProfessor = idProfessor;
+        this.alunoCpf = aluno;
+        this.professorCpf = professorCpf;
         this.observacao = observacao;
     }
 
@@ -28,20 +28,20 @@ public class ObservacaoResponseDTO {
         this.id = id;
     }
 
-    public Long getIdAluno() {
-        return idAluno;
+    public Long getAlunoCpf() {
+        return alunoCpf;
     }
 
-    public void setIdAluno(Long idAluno) {
-        this.idAluno = idAluno;
+    public void setAlunoCpf(Long alunoCpf) {
+        this.alunoCpf = alunoCpf;
     }
 
-    public Long getIdProfessor() {
-        return idProfessor;
+    public Long getProfessorCpf() {
+        return professorCpf;
     }
 
-    public void setIdProfessor(Long idProfessor) {
-        this.idProfessor = idProfessor;
+    public void setProfessorCpf(Long professorCpf) {
+        this.professorCpf = professorCpf;
     }
 
     public String getObservacao() {
