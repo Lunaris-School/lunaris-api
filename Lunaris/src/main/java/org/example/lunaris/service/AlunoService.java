@@ -40,6 +40,7 @@ public class AlunoService {
     }
     private Aluno fromDTO(AlunoRequestDTO dto){
         Aluno aluno = new Aluno();
+        aluno.setCpf(dto.getCpf());
         aluno.setNome(dto.getNome());
         aluno.setEmail(dto.getEmail());
         aluno.setSenha(passwordEncoder.encode(dto.getSenha()));
@@ -55,7 +56,6 @@ public class AlunoService {
                 aluno.getNome(),
                 aluno.getMatricula(),
                 aluno.getEmail(),
-                aluno.getRole().getId(),
                 aluno.getGeneroId(),
                 aluno.getTurma().getId()
         );

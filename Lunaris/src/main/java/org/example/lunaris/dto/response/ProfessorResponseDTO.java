@@ -11,7 +11,6 @@ public class ProfessorResponseDTO {
     private String nome;
     private String email;
     private String disciplina;
-    private String role;
     private LocalDate dataContratacao;
 
 
