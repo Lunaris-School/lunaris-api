@@ -28,7 +28,7 @@ public class ProfessorRequestDTO {
     private int disciplinaId;
 
     @NotNull
-    @Past
+    @PastOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataContratacao;
 
