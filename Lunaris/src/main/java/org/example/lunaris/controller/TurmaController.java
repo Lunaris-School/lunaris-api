@@ -39,7 +39,7 @@ public class TurmaController implements TurmaContract {
     public ResponseEntity<List<TurmaResponseDTO>> buscarTurmas() {
         List<TurmaResponseDTO> lista = turmaService.listarTurmas();
 
-        return new ResponseEntity<>(lista, HttpStatus.FOUND);
+        return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
     @Override

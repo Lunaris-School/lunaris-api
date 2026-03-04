@@ -39,7 +39,7 @@ public class DisciplinaController implements DisciplinaContract {
     @GetMapping
     public ResponseEntity<List<DisciplinaResponseDTO>> listarDisciplinas(){
         List<DisciplinaResponseDTO> disciplinaResponse = disciplinaService.listarDisciplinas();
-        return new ResponseEntity<>(disciplinaResponse, HttpStatus.FOUND);
+        return new ResponseEntity<>(disciplinaResponse, HttpStatus.OK);
     }
 
 }

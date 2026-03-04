@@ -39,7 +39,7 @@ public class AdministradorController implements AdministradorContract {
     @GetMapping
     public ResponseEntity<List<AdminResponseDTO>> listarAdmins(){
         List<AdminResponseDTO> adminResponse = administradorService.listarAdmins();
-        return new ResponseEntity<>(adminResponse, HttpStatus.FOUND);
+        return new ResponseEntity<>(adminResponse, HttpStatus.OK);
     }
 
     @Override
@@ -52,6 +52,6 @@ public class AdministradorController implements AdministradorContract {
     @GetMapping("/{id}")
     public ResponseEntity<AdminResponseDTO> getById(@PathVariable int id){
         AdminResponseDTO admin = administradorService.getById(id);
-        return new ResponseEntity<>(admin, HttpStatus.FOUND);
+        return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 }
