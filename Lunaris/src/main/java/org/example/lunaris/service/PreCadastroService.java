@@ -32,6 +32,6 @@ public class PreCadastroService {
 
         PreCadastro preCadastroSalvo = preCadastroRepository.save(preCadastro);
 
-        return new PreCadastroResponseDTO(preCadastroSalvo.getId(),preCadastro.getAlunoCpf(),preCadastro.getDataAutorizacao());
+        return new PreCadastroResponseDTO(preCadastroSalvo.getId(),preCadastro.getAlunoCpf(),preCadastro.getNome(),preCadastro.getDataAutorizacao());
     }
 }

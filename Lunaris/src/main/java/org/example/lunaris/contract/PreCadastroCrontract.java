@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 @Tag(name = "Pré-Cadastro Controller", description = "Gerenciamento de pré-cadastros")
 public interface PreCadastroCrontract {
     @Operation(
-            summary = "Adicionar um noo pre cadastro",
+            summary = "Adicionar um novo pre cadastro",
             description = "Adiciona um novo pre cadastro de um aluno no sistema."
     )
     @ApiResponses({
