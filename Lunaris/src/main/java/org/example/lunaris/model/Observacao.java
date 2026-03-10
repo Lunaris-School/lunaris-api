@@ -13,11 +13,13 @@ public class Observacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="aluno_cpf")
-    private Long alunoCpf;
+    @ManyToOne
+    @JoinColumn(name = "aluno_cpf")
+    private Aluno aluno;
 
-    @Column(name = "professor_cpf")
-    private Long professorCpf;
+    @ManyToOne
+    @JoinColumn(name = "professor_cpf")
+    private Professor professor;
 
     @Column(length = 500)
     private String observacao;
@@ -25,27 +27,27 @@ public class Observacao {
     public Observacao() {
     }
 
-    public Observacao(Integer id, Long alunoCpf, Long professorCpf, String observacao) {
+    public Observacao(Integer id, Aluno aluno, Professor professor, String observacao) {
         this.id = id;
-        this.alunoCpf = alunoCpf;
-        this.professorCpf = professorCpf;
+        this.aluno = aluno;
+        this.professor = professor;
         this.observacao = observacao;
     }
 
-    public Long getAlunoCpf() {
-        return alunoCpf;
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    public void setAlunoCpf(Long alunoCpf) {
-        this.alunoCpf = alunoCpf;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
-    public Long getProfessorCpf() {
-        return professorCpf;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setProfessorCpf(Long professorCpf) {
-        this.professorCpf = professorCpf;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
 
@@ -64,4 +66,5 @@ public class Observacao {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+
 }

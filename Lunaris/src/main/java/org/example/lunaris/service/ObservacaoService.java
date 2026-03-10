@@ -5,7 +5,9 @@ import jakarta.transaction.Transactional;
 import org.example.lunaris.dto.request.ObservacaoRequestDTO;
 import org.example.lunaris.dto.response.ObservacaoResponseDTO;
 import org.example.lunaris.exception.NotFoundException;
+import org.example.lunaris.model.Aluno;
 import org.example.lunaris.model.Observacao;
+import org.example.lunaris.model.Professor;
 import org.example.lunaris.repository.AlunoRepository;
 import org.example.lunaris.repository.ObservacaoRepository;
 import org.example.lunaris.repository.ProfessorRepository;
@@ -28,33 +30,29 @@ public class ObservacaoService {
         this.professorRepository = professorRepository;
     }
 
-    private Observacao fromDTO(ObservacaoRequestDTO dto){
-        return new Observacao(
-                null,
-                dto.getAlunoCpf(),
-                dto.getProfessorCpf(),
-                dto.getObservacao()
-        );
-    }
-
     private ObservacaoResponseDTO toDTO(Observacao obs){
         return new ObservacaoResponseDTO(
                 obs.getId(),
-                obs.getAlunoCpf(),
-                obs.getProfessorCpf(),
+                obs.getAluno().getCpf(),
+                obs.getProfessor().getCpf(),
                 obs.getObservacao()
         );
     }
 
     @Transactional
     public ObservacaoResponseDTO criar(ObservacaoRequestDTO dto){
-        alunoRepository.findById(dto.getAlunoCpf())
+        Aluno aluno = alunoRepository.findById(dto.getAlunoCpf())
                 .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
 
-        professorRepository.findById(dto.getProfessorCpf())
+        Professor professor = professorRepository.findById(dto.getProfessorCpf())
                 .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
 
-        Observacao observacao = fromDTO(dto);
+        Observacao observacao = new Observacao();
+
+        observacao.setAluno(aluno);
+        observacao.setProfessor(professor);
+        observacao.setObservacao(dto.getObservacao());
+
         return toDTO(repository.save(observacao));
     }
 
@@ -65,17 +63,17 @@ public class ObservacaoService {
                 .orElseThrow(() -> new NotFoundException("Observação não encontrada"));
 
         if(dto.getAlunoCpf() != null){
-            alunoRepository.findById(dto.getAlunoCpf())
+            Aluno aluno = alunoRepository.findById(dto.getAlunoCpf())
                     .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
 
-            obs.setAlunoCpf(dto.getAlunoCpf());
+            obs.setAluno(aluno);
         }
 
         if(dto.getProfessorCpf() != null){
-            professorRepository.findById(dto.getProfessorCpf())
+           Professor professor = professorRepository.findById(dto.getProfessorCpf())
                     .orElseThrow(() -> new NotFoundException("Professor não encontrado"));
 
-            obs.setProfessorCpf(dto.getProfessorCpf());
+            obs.setProfessor(professor);
         }
 
         if(dto.getObservacao() != null){

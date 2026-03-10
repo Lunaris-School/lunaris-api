@@ -1,5 +1,6 @@
 package org.example.lunaris.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,10 @@ public class Professor {
 
     @OneToMany(mappedBy = "professor")
     private List<TurmaProfessor> turmaProfessores;
+
+    @OneToMany(mappedBy = "professor")
+    @JsonIgnore
+    private List<Observacao> observacoes;
 
     public String getNome() {
         return nome;
@@ -100,5 +105,13 @@ public class Professor {
 
     public void setTurmaProfessores(List<TurmaProfessor> turmaProfessores) {
         this.turmaProfessores = turmaProfessores;
+    }
+
+    public List<Observacao> getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(List<Observacao> observacoes) {
+        this.observacoes = observacoes;
     }
 }
