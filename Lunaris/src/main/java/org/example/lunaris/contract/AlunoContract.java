@@ -51,7 +51,7 @@ public interface AlunoContract {
     ResponseEntity<List<AlunoTurmaResponseDTO>> listarAlunosTurma(Integer ano);
 
     @GetMapping("/listarRanking")
-    ResponseEntity<List<AlunoRankingDTO>> listarRankig(@RequestParam Integer disciplinaId, @RequestParam Integer quantidade);
+    ResponseEntity<List<AlunoRankingDTO>> listarRankig(Long professorCpf, Integer disciplinaId, Integer quantidade);
 
     @Operation(summary = "Criar novo aluno",
             description = "Cria um novo aluno no sistema")

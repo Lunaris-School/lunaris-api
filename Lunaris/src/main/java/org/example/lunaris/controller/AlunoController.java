@@ -43,8 +43,8 @@ public class AlunoController implements AlunoContract {
 
     @Override
     @GetMapping("/listarRanking")
-    public ResponseEntity<List<AlunoRankingDTO>> listarRankig(@RequestParam Integer disciplinaId, @RequestParam Integer quantidade){
-        return ResponseEntity.ok(alunoService.getRanking(disciplinaId,quantidade));
+    public ResponseEntity<List<AlunoRankingDTO>> listarRankig(@RequestParam(required = false) Long professorCpf, @RequestParam Integer disciplinaId, @RequestParam Integer quantidade){
+        return ResponseEntity.ok(alunoService.getRanking(professorCpf,disciplinaId,quantidade));
     }
     @Override
     @PostMapping("/inserir")

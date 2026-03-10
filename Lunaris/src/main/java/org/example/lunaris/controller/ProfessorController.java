@@ -34,7 +34,7 @@ public class ProfessorController implements ProfessorContract {
     }
 
     @Override
-    @GetMapping("/{cpf}")
+    @GetMapping("/buscar/{cpf}")
     public ResponseEntity<ProfessorResponseDTO> getProfessorById(@PathVariable Long cpf) {
             return ResponseEntity.ok(professorService.getProfessorById(cpf));
     }

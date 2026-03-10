@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +35,8 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
         JOIN Notas n on n.boletim.id = b.id
         JOIN Professor p on p.disciplina.id = n.disciplina.id
         WHERE n.disciplina.id = :disciplinaId
+        AND (:professorCpf IS NULL OR p.cpf = :professorCpf)
         ORDER BY (n.valorNota + n.valorNota2) / 2 DESC
     """)
-    List<Object[]> rankingAlunos(@Param("disciplinaId") Integer disciplinaId, Pageable pageable);
+    List<Object[]> rankingAlunos(@Param("professorCpf") Long professorCpf, @Param("disciplinaId") Integer disciplinaId, Pageable pageable);
 }
