@@ -47,10 +47,12 @@ public class AutenticacaoController implements AutenticacaoContract {
     public ResponseEntity<?> get(JwtAuthenticationToken token){
         String email = token.getName();
         String role = token.getToken().getClaim("role");
+        String userNome = token.getToken().getClaim("nome");
         Long userId = token.getToken().getClaim("userId");
 
         return ResponseEntity.ok(Map.of(
                 "id", userId,
+                "nome", userNome,
                 "email", email,
                 "role", role
         ));

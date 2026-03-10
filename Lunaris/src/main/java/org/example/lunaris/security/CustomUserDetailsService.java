@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -51,19 +53,25 @@ public class CustomUserDetailsService implements UserDetailsService {
         return User.builder().username(email).password(password).roles(role).build();
     }
 
-    public Long buscarIdUsuario(String email){
+    public Map<String, Object> buscarIdUsuario(String email){
+        Map<String, Object> objectMap = new HashMap<>();
         Optional<Aluno> aluno = alunoRepository.findByEmail(email);
         if (aluno.isPresent()){
-            return aluno.get().getCpf();
+            objectMap.put("id",aluno.get().getCpf());
+            objectMap.put("nome",aluno.get().getNome());
+            return objectMap;
         }
         Optional<Administrador> admin = Optional.ofNullable(administradorRepository.findByEmail(email));
         if (admin.isPresent()){
-            return Long.valueOf(admin.get().getId());
-
+            objectMap.put("id",Long.valueOf(admin.get().getId()));
+            objectMap.put("nome",admin.get().getNome());
+            return objectMap;
         }
         Optional<Professor> professor = professorRepository.findByEmail(email);
         if (professor.isPresent()){
-            return professor.get().getCpf();
+            objectMap.put("id",professor.get().getCpf());
+            objectMap.put("nome",professor.get().getNome());
+            return objectMap;
         }
         throw new NotFoundException("Usuário não encontrado");
     }
