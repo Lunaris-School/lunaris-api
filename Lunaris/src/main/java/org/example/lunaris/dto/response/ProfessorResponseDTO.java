@@ -10,16 +10,18 @@ public class ProfessorResponseDTO {
     private Long cpf;
     private String nome;
     private String email;
+    private Integer disciplinaId;
     private String disciplina;
     private LocalDate dataContratacao;
 
 
     public ProfessorResponseDTO() {
     }
-    public ProfessorResponseDTO( Long cpf,  String nome, String email, String disciplina, LocalDate dataContratacao) {
+    public ProfessorResponseDTO(Long cpf, String nome, String email, Integer disciplinaId, String disciplina, LocalDate dataContratacao) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
+        this.disciplinaId = disciplinaId;
         this.disciplina = disciplina;
         this.dataContratacao = dataContratacao;
     }
@@ -57,6 +59,14 @@ public class ProfessorResponseDTO {
         this.dataContratacao = dataContratacao;
     }
 
+    public Integer getDisciplinaId() {
+        return disciplinaId;
+    }
+
+    public void setDisciplinaId(Integer disciplinaId) {
+        this.disciplinaId = disciplinaId;
+    }
+
     public String getDisciplina() {
         return disciplina;
     }
@@ -64,4 +74,5 @@ public class ProfessorResponseDTO {
     public void setDisciplina(String disciplina) {
         this.disciplina = disciplina;
     }
+
 }

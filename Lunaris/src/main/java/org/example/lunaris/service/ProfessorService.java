@@ -129,6 +129,7 @@ public class ProfessorService {
                 professor.getCpf(),
                 professor.getNome(),
                 professor.getEmail(),
+                professor.getDisciplina().getId(),
                 professor.getDisciplina().getNome(),
                 professor.getDataContratacao());
     }

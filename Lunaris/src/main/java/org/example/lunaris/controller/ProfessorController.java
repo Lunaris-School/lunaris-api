@@ -60,12 +60,12 @@ public class ProfessorController implements ProfessorContract {
             return ResponseEntity.noContent().build();
     }
     @Override
-    @GetMapping("/{cpf}/alunos")
+    @GetMapping("alunos/{cpf}")
     public ResponseEntity<List<Aluno>> buscarAlunosDoProfessor(@PathVariable Long cpf) {
-            List<Aluno> alunos = professorService.buscarAlunosDoProfessor(cpf);
-            if (alunos.isEmpty()) {
-                    return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(alunos);
+        List<Aluno> alunos = professorService.buscarAlunosDoProfessor(cpf);
+        if (alunos.isEmpty()) {
+                return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(alunos);
     }
 }

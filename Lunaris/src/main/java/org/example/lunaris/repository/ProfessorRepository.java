@@ -1,6 +1,7 @@
 package org.example.lunaris.repository;
 
 import org.example.lunaris.model.Aluno;
+import org.example.lunaris.model.Disciplina;
 import org.example.lunaris.model.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     List<Aluno> buscarAlunosDoProfessor(@Param("cpf") Long cpf);
 
     Optional<Professor> findByEmail(String email);
+
+    Professor findByDisciplina(Disciplina disciplina);
 }
