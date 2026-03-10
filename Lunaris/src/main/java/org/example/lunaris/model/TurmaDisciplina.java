@@ -1,15 +1,9 @@
 package org.example.lunaris.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Table(name = "turma_professor")
-@Getter
-@Setter
-public class TurmaProfessor {
-
+@Table(name = "turma_disciplina")
+public class TurmaDisciplina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -19,16 +13,17 @@ public class TurmaProfessor {
     private Turma turma;
 
     @ManyToOne
-    @JoinColumn(name = "professor_cpf")
-    private Professor professor;
+    @JoinColumn(name = "disciplina_id")
+    private Disciplina disciplina;
 
-    public TurmaProfessor() {
+    public TurmaDisciplina() {
 
     }
-    public TurmaProfessor(Integer id, Turma turma, Professor professor) {
+
+    public TurmaDisciplina(Integer id, Turma turma, Disciplina disciplina) {
         this.id = id;
         this.turma = turma;
-        this.professor = professor;
+        this.disciplina = disciplina;
     }
 
     public Integer getId() {
@@ -47,11 +42,11 @@ public class TurmaProfessor {
         this.turma = turma;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 }

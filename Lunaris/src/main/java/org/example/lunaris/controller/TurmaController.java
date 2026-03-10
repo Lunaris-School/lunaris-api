@@ -4,7 +4,9 @@ package org.example.lunaris.controller;
 import jakarta.validation.Valid;
 import org.example.lunaris.contract.TurmaContract;
 import org.example.lunaris.dto.request.TurmaRequestDTO;
+import org.example.lunaris.dto.response.MediaTurmaDisciplinaDTO;
 import org.example.lunaris.dto.response.TurmaResponseDTO;
+import org.example.lunaris.dto.response.TurmaStatusResponseDTO;
 import org.example.lunaris.service.TurmaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,11 +45,30 @@ public class TurmaController implements TurmaContract {
     }
 
     @Override
-    @PostMapping
-    public ResponseEntity<TurmaResponseDTO> salvarTurma(
-            @RequestBody @Valid TurmaRequestDTO requestDTO) {
+    @GetMapping("/listarMedias")
+    public ResponseEntity<List<MediaTurmaDisciplinaDTO>> listarMediasPorDisciplinaPorTurma(){
+        List<MediaTurmaDisciplinaDTO> lista = turmaService.listarMediaTurmaDisciplina();
 
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
+    @Override
+    @GetMapping("/listarQuantidadeStatus/{cpf}")
+    public ResponseEntity<List<TurmaStatusResponseDTO>> listarQuantidadeAlunoPorStatus(@PathVariable Long cpf){
+        List<TurmaStatusResponseDTO> lista = turmaService.listarQuantidadeAlunoPorStatus(cpf);
+
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
+    @Override
+    @PostMapping
+    public ResponseEntity<TurmaResponseDTO> salvarTurma(@RequestBody @Valid TurmaRequestDTO requestDTO) {
         return ResponseEntity.ok(turmaService.salvarTurma(requestDTO));
+    }
+    @Override
+    @PatchMapping("/{id}")
+    public ResponseEntity<Boolean> atualizarDisciplinas(@PathVariable Integer id, @RequestBody List<Integer> disciplinasId){
+        return ResponseEntity.ok(turmaService.adicionarDisciplinas(id, disciplinasId));
     }
 
     @Override
