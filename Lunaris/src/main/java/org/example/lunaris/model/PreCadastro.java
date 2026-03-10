@@ -18,6 +18,7 @@ public class PreCadastro {
     private Integer id;
     @Column(name = "aluno_cpf")
     private Long alunoCpf;
+    private String nome;
     @Column(name = "data_autorizacao")
     private LocalDateTime dataAutorizacao;
 
@@ -35,6 +36,14 @@ public class PreCadastro {
 
     public void setAlunoCpf(Long alunoCpf) {
         this.alunoCpf = alunoCpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public LocalDateTime getDataAutorizacao() {

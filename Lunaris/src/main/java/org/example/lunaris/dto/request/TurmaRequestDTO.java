@@ -4,18 +4,16 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Year;
+
 @Getter
 @Setter
 public class TurmaRequestDTO {
 
     @NotBlank
-    @Size(min = 2, max = 2)
     private String nome;
 
-    @NotNull
-    @Max(2026)
-    private Integer anoLetivo;
-
+    private Integer anoLetivo = Year.now().getValue();
 
     public TurmaRequestDTO() {
     }

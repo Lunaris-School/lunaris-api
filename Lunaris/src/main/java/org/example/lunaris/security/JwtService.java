@@ -12,6 +12,7 @@ import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 public class JwtService {
@@ -41,12 +42,13 @@ public class JwtService {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + 3600000);
 
-        Long userId = userDetailsService.buscarIdUsuario(user.getUsername());
+        Map<String, Object> userDetalhe = userDetailsService.buscarIdUsuario(user.getUsername());
 
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 .claim("role", role)
-                .claim("userId", userId)
+                .claim("nome",userDetalhe.get("nome"))
+                .claim("userId", userDetalhe.get("id"))
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(privateKey, SignatureAlgorithm.RS256)

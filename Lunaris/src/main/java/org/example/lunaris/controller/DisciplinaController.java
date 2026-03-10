@@ -36,7 +36,7 @@ public class DisciplinaController implements DisciplinaContract {
     }
 
     @Override
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<DisciplinaResponseDTO>> listarDisciplinas(){
         List<DisciplinaResponseDTO> disciplinaResponse = disciplinaService.listarDisciplinas();
         return new ResponseEntity<>(disciplinaResponse, HttpStatus.OK);
