@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.example.lunaris.Enum.RoleEnum;
 import org.example.lunaris.dto.request.AlunoPatchRequestDTO;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
+import org.example.lunaris.dto.response.AlunoRankingDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
 import org.example.lunaris.exception.DuplicateException;
@@ -12,6 +13,8 @@ import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.exception.PreCadastroNotFoundException;
 import org.example.lunaris.model.*;
 import org.example.lunaris.repository.*;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -131,6 +134,13 @@ public class AlunoService {
         return repository.findAll().stream().map(this::toDTO).collect(toList());
     }
 
+    public List<AlunoRankingDTO> getRanking(Integer disciplinaId, Integer quantidade){
+        Pageable limite = PageRequest.of(0,quantidade);
+        List<Object[]> dados = repository.rankingAlunos(disciplinaId, limite);
+        return dados.stream().map(object ->{
+            return new AlunoRankingDTO((String) object[0],(double) Math.round((Double) object[1] * 100) /100, (String) object[2], (String) object[3]);
+        }).toList();
+    }
     public List<AlunoTurmaResponseDTO> listarAlunosPorTurma(Integer ano){
         List<Object[]> dados = repository.countAlunosByTurma(ano);
 

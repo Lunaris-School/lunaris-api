@@ -4,6 +4,7 @@ package org.example.lunaris.controller;
 import org.example.lunaris.contract.AlunoContract;
 import org.example.lunaris.dto.request.AlunoPatchRequestDTO;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
+import org.example.lunaris.dto.response.AlunoRankingDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
 import org.example.lunaris.service.AlunoService;
@@ -40,6 +41,11 @@ public class AlunoController implements AlunoContract {
         return ResponseEntity.ok(alunoService.listarAlunosPorTurma(ano));
     }
 
+    @Override
+    @GetMapping("/listarRanking")
+    public ResponseEntity<List<AlunoRankingDTO>> listarRankig(@RequestParam Integer disciplinaId, @RequestParam Integer quantidade){
+        return ResponseEntity.ok(alunoService.getRanking(disciplinaId,quantidade));
+    }
     @Override
     @PostMapping("/inserir")
     public ResponseEntity<AlunoResponseDTO> inserirAluno(@RequestBody AlunoRequestDTO dto){

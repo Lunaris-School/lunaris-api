@@ -8,9 +8,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.lunaris.dto.request.AlunoPatchRequestDTO;
 import org.example.lunaris.dto.request.AlunoRequestDTO;
+import org.example.lunaris.dto.response.AlunoRankingDTO;
 import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.AlunoTurmaResponseDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -46,6 +49,9 @@ public interface AlunoContract {
             @ApiResponse(responseCode = "204", description = "Nenhum aluno encontrado")
     })
     ResponseEntity<List<AlunoTurmaResponseDTO>> listarAlunosTurma(Integer ano);
+
+    @GetMapping("/listarRanking")
+    ResponseEntity<List<AlunoRankingDTO>> listarRankig(@RequestParam Integer disciplinaId, @RequestParam Integer quantidade);
 
     @Operation(summary = "Criar novo aluno",
             description = "Cria um novo aluno no sistema")

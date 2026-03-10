@@ -1,6 +1,9 @@
 package org.example.lunaris.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "aluno")
@@ -30,6 +33,10 @@ public class Aluno {
     @ManyToOne
     @JoinColumn(name = "turma_id")
     private Turma turma;
+
+    @OneToMany(mappedBy = "aluno")
+    @JsonIgnore
+    private List<Observacao> observacoes;
 
     public Aluno() {}
     public Aluno(Long cpf, String nome, Long matricula, String email, String senha, Role role, Integer generoId, Turma turma) {
@@ -105,5 +112,13 @@ public class Aluno {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
+    }
+
+    public List<Observacao> getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(List<Observacao> observacoes) {
+        this.observacoes = observacoes;
     }
 }
