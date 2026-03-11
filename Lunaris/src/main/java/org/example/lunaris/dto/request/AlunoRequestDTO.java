@@ -22,18 +22,16 @@ public class AlunoRequestDTO {
     private String senha;
 
     private Integer generoId;
-    private Integer turmaId;
 
     public AlunoRequestDTO() {
     }
-    public AlunoRequestDTO(Long cpf, String nome, Long matricula, String email, String senha, Integer generoId, Integer turmaId) {
+    public AlunoRequestDTO(Long cpf, String nome, Long matricula, String email, String senha, Integer generoId) {
         this.cpf = cpf;
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
         this.senha = senha;
         this.generoId = generoId;
-        this.turmaId = turmaId;
     }
 
     public @NotNull @CPF Long getCpf() {
@@ -82,13 +80,5 @@ public class AlunoRequestDTO {
 
     public void setGeneroId(Integer generoId) {
         this.generoId = generoId;
-    }
-
-    public Integer getTurmaId() {
-        return turmaId;
-    }
-
-    public void setTurmaId(Integer turmaId) {
-        this.turmaId = turmaId;
     }
 }

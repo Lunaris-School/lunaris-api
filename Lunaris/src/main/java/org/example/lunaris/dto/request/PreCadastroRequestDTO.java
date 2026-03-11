@@ -8,12 +8,14 @@ public class PreCadastroRequestDTO {
 
     @NotNull
     String nome;
+    Integer turmaId;
 
     public PreCadastroRequestDTO() {
     }
-    public PreCadastroRequestDTO(Long alunoCpf, String nome) {
+    public PreCadastroRequestDTO(Long alunoCpf, String nome, Integer turmaId) {
         this.alunoCpf = alunoCpf;
         this.nome = nome;
+        this.turmaId = turmaId;
     }
 
     public Long getAlunoCpf() {
@@ -31,4 +33,8 @@ public class PreCadastroRequestDTO {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    public Integer getTurmaId() {
+        return turmaId;
+    }
+    public void setTurmaId(Integer turmaId) {this.turmaId = turmaId;}
 }

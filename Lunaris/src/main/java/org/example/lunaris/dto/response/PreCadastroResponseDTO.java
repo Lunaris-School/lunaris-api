@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class PreCadastroResponseDTO {
     Integer id;
     Long alunoCpf;
+    Integer turmaId;
 
     String nome;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -14,10 +15,11 @@ public class PreCadastroResponseDTO {
 
     public PreCadastroResponseDTO() {
     }
-    public PreCadastroResponseDTO(Integer id, Long alunoCpf, String nome, LocalDateTime dataAutorizacao) {
+    public PreCadastroResponseDTO(Integer id, Long alunoCpf, String nome, Integer turmaId, LocalDateTime dataAutorizacao) {
         this.id = id;
         this.alunoCpf = alunoCpf;
         this.nome = nome;
+        this.turmaId = turmaId;
         this.dataAutorizacao = dataAutorizacao;
     }
 
@@ -51,5 +53,13 @@ public class PreCadastroResponseDTO {
 
     public void setDataAutorizacao(LocalDateTime dataAutorizacao) {
         this.dataAutorizacao = dataAutorizacao;
+    }
+
+    public Integer getTurmaId() {
+        return turmaId;
+    }
+
+    public void setTurmaId(Integer turmaId) {
+        this.turmaId = turmaId;
     }
 }

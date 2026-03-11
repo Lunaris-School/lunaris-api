@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.lunaris.dto.request.ProfessorPatchRequestDTO;
 import org.example.lunaris.dto.request.ProfessorRequestDTO;
 import org.example.lunaris.dto.request.ProfessorUpdateRequestDTO;
+import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.ProfessorResponseDTO;
 import org.example.lunaris.model.Aluno;
 import org.springframework.http.ResponseEntity;
@@ -82,5 +83,5 @@ public interface ProfessorContract {
                             schema = @Schema(implementation = Aluno.class))),
             @ApiResponse(responseCode = "204", description = "Professor não possui alunos")
     })
-    ResponseEntity<List<Aluno>> buscarAlunosDoProfessor(Long cpf);
+    ResponseEntity<List<AlunoResponseDTO>> buscarAlunosDoProfessor(Long cpf);
 }

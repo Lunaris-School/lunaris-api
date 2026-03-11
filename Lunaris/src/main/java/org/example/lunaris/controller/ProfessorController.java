@@ -5,8 +5,8 @@ import org.example.lunaris.contract.ProfessorContract;
 import org.example.lunaris.dto.request.ProfessorPatchRequestDTO;
 import org.example.lunaris.dto.request.ProfessorRequestDTO;
 import org.example.lunaris.dto.request.ProfessorUpdateRequestDTO;
+import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.ProfessorResponseDTO;
-import org.example.lunaris.model.Aluno;
 import org.example.lunaris.service.ProfessorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,8 +61,8 @@ public class ProfessorController implements ProfessorContract {
     }
     @Override
     @GetMapping("alunos/{cpf}")
-    public ResponseEntity<List<Aluno>> buscarAlunosDoProfessor(@PathVariable Long cpf) {
-        List<Aluno> alunos = professorService.buscarAlunosDoProfessor(cpf);
+    public ResponseEntity<List<AlunoResponseDTO>> buscarAlunosDoProfessor(@PathVariable Long cpf) {
+        List<AlunoResponseDTO> alunos = professorService.buscarAlunosDoProfessor(cpf);
         if (alunos.isEmpty()) {
                 return ResponseEntity.noContent().build();
         }

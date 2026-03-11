@@ -28,18 +28,18 @@ public class AdministradorService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public AdminResponseDTO cadastrar(AdminCreateRequestDTO adminResquest){
+    public AdminResponseDTO cadastrar(AdminCreateRequestDTO adminRequest){
 
-        Administrador administradorExistente = administradorRepository.findByEmail(adminResquest.getEmail());
+        Administrador administradorExistente = administradorRepository.findByEmail(adminRequest.getEmail());
 
         if (administradorExistente != null){
             throw new DuplicateException("Administrador já foi cadastrado");
         }
         Administrador admin = new Administrador();
 
-        admin.setNome(adminResquest.getNome());
-        admin.setEmail(adminResquest.getEmail());
-        admin.setSenha(passwordEncoder.encode(adminResquest.getSenha()));
+        admin.setNome(adminRequest.getNome());
+        admin.setEmail(adminRequest.getEmail());
+        admin.setSenha(passwordEncoder.encode(adminRequest.getSenha()));
 
         Role adminRole = roleRepository.findByNome(RoleEnum.ADMIN.name());
         admin.setRole(adminRole);

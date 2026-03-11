@@ -48,7 +48,8 @@ public class SecurityConfig {
                             "/swagger-ui/**",
                             "/v3/api-docs/**",
                             "/swagger-ui.html",
-                            "/auth/login"
+                            "/auth/login",
+                            "/aluno/inserir"
                     ).permitAll();
                     configurarRotasAdmin(authorize);
                     configurarRotasAluno(authorize);

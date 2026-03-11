@@ -5,6 +5,7 @@ import org.example.lunaris.Enum.RoleEnum;
 import org.example.lunaris.dto.request.ProfessorPatchRequestDTO;
 import org.example.lunaris.dto.request.ProfessorRequestDTO;
 import org.example.lunaris.dto.request.ProfessorUpdateRequestDTO;
+import org.example.lunaris.dto.response.AlunoResponseDTO;
 import org.example.lunaris.dto.response.ProfessorResponseDTO;
 import org.example.lunaris.exception.DuplicateException;
 import org.example.lunaris.exception.NotFoundException;
@@ -115,8 +116,10 @@ public class ProfessorService {
         professorRepository.delete(professor);
     }
 
-    public List<Aluno> buscarAlunosDoProfessor(Long professorCpf) {
-        return professorRepository.buscarAlunosDoProfessor(professorCpf);
+    public List<AlunoResponseDTO> buscarAlunosDoProfessor(Long professorCpf) {
+        List<Aluno> alunos = professorRepository.buscarAlunosDoProfessor(professorCpf);
+
+        return alunos.stream().map(aluno -> new AlunoResponseDTO(aluno.getCpf(), aluno.getNome(), aluno.getMatricula(), aluno.getEmail(), aluno.getGeneroId(), aluno.getTurma().getId())).toList();
     }
 
     private Professor findProfessor(Long cpf) {

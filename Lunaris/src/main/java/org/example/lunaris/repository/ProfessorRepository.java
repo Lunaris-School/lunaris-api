@@ -17,7 +17,7 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
            """)
     Professor buscaPorCpf(@Param("cpf") Long cpf);
     @Query("""
-        SELECT a
+        SELECT DISTINCT a
         FROM Aluno a
         JOIN a.turma t
         JOIN t.turmaProfessors tp

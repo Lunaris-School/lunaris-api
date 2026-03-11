@@ -1,6 +1,7 @@
 package org.example.lunaris.service;
 
 import org.example.lunaris.dto.request.NotasRequestDTO;
+import org.example.lunaris.dto.request.NotasUpdateRequestDTO;
 import org.example.lunaris.dto.response.NotasResponseDTO;
 import org.example.lunaris.exception.NotFoundException;
 import org.example.lunaris.model.Boletim;
@@ -43,6 +44,32 @@ public class NotasService {
         nota.setDataLancamento(dto.getDataLancamento());
 
         Notas salva = notasRepository.save(nota);
+
+        atualizarMedia(boletim);
+
+        return new NotasResponseDTO(
+                salva.getId(),
+                salva.getValorNota(),
+                salva.getValorNota2(),
+                salva.getTipoAvaliacao(),
+                salva.getDisciplina().getId(),
+                salva.getDisciplina().getNome(),
+                salva.getDataLancamento()
+        );
+    }
+    public NotasResponseDTO atualizarNota(Integer notaId, NotasUpdateRequestDTO dto) {
+
+        Notas notas = notasRepository.findById(notaId)
+                .orElseThrow(() -> new NotFoundException("Notas não encontrado"));
+
+        Boletim boletim = boletimRepository.findById(dto.getBoletimId())
+                .orElseThrow(() -> new NotFoundException("Boletim não encontrado"));
+
+        if (dto.getValorNota() != null) notas.setValorNota(dto.getValorNota());
+        if (dto.getValorNota2() != null) notas.setValorNota2(dto.getValorNota2());
+        if (dto.getTipoAvaliacao() != null) notas.setTipoAvaliacao(dto.getTipoAvaliacao());
+
+        Notas salva = notasRepository.save(notas);
 
         atualizarMedia(boletim);
 

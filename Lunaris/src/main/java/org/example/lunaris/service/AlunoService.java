@@ -78,6 +78,8 @@ public class AlunoService {
         if(preCadastro.isEmpty()){
             throw new PreCadastroNotFoundException("Esse aluno ainda não foi pré-cadastrado");
         }
+        Integer turmaId = preCadastro.get().getTurmaId();
+
         preCadastroRepository.delete(preCadastro.get());
 
         Genero genero = generoRepository.buscaPorId(dto.getGeneroId());
@@ -85,7 +87,7 @@ public class AlunoService {
             throw new NotFoundException("Genero não encontrado");
         }
 
-        Optional<Turma> turma = turmaRepository.findById(dto.getTurmaId());
+        Optional<Turma> turma = turmaRepository.findById(turmaId);
 
         if (turma.isEmpty()){
             throw new NotFoundException("Turma não encontrada");
