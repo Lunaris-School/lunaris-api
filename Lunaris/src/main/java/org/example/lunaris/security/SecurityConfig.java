@@ -106,7 +106,7 @@ public class SecurityConfig {
         authorize.requestMatchers("/api/pre-cadastro/**").hasRole("ADMIN");
         authorize.requestMatchers("/api/professor/deletar/{id}").hasRole("ADMIN");
         authorize.requestMatchers("/api/professor/buscar/").hasAnyRole("ADMIN","PROFESSOR");
-        authorize.requestMatchers("/api/professor").hasRole("ADMIN", "ALUNO");
+        authorize.requestMatchers("/api/professor").hasRole("ADMIN");
         authorize.requestMatchers("/v1/turma").hasRole("ADMIN");
         authorize.requestMatchers("/v1/turma/deletar/").hasRole("ADMIN");
         authorize.requestMatchers("/genero/inserir").hasRole("ADMIN");
@@ -121,7 +121,7 @@ public class SecurityConfig {
         authorize.requestMatchers("/aluno/**").hasAnyRole("ALUNO", "ADMIN");
         authorize.requestMatchers("/v1/boletim/aluno/").hasRole("ALUNO");
         authorize.requestMatchers("/observacao/buscar/aluno/").hasRole("ALUNO");
-
+        authorize.requestMatchers(HttpMethod.GET, "/api/professor").hasAnyRole("ALUNO", "ADMIN", "PROFESSOR");
     }
     private void configurarRotasProfessor(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){
         authorize.requestMatchers("/api/professor/atualizar-parcial/").hasRole("PROFESSOR");
