@@ -39,7 +39,7 @@ public class ProfessorController implements ProfessorContract {
             return ResponseEntity.ok(professorService.getProfessorById(cpf));
     }
     @Override
-    @PostMapping
+    @PostMapping("/inserir")
     public ResponseEntity<ProfessorResponseDTO> salvarProfessor(@RequestBody @Valid ProfessorRequestDTO requestDTO) {
             return ResponseEntity.ok(professorService.salvarProfessor(requestDTO));
     }
@@ -60,7 +60,7 @@ public class ProfessorController implements ProfessorContract {
             return ResponseEntity.noContent().build();
     }
     @Override
-    @GetMapping("alunos/{cpf}")
+    @GetMapping("/alunos/{cpf}")
     public ResponseEntity<List<AlunoResponseDTO>> buscarAlunosDoProfessor(@PathVariable Long cpf) {
         List<AlunoResponseDTO> alunos = professorService.buscarAlunosDoProfessor(cpf);
         if (alunos.isEmpty()) {

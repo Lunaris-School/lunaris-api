@@ -106,12 +106,12 @@ public class SecurityConfig {
         authorize.requestMatchers("/api/pre-cadastro/**").hasRole("ADMIN");
         authorize.requestMatchers("/api/professor/deletar/{id}").hasRole("ADMIN");
         authorize.requestMatchers("/api/professor/buscar/").hasAnyRole("ADMIN","PROFESSOR");
-        authorize.requestMatchers("/api/professor").hasRole("ADMIN");
+        authorize.requestMatchers("/api/professor/inserir").hasRole("ADMIN");
         authorize.requestMatchers("/v1/turma").hasRole("ADMIN");
         authorize.requestMatchers("/v1/turma/deletar/").hasRole("ADMIN");
         authorize.requestMatchers("/genero/inserir").hasRole("ADMIN");
         authorize.requestMatchers("/genero/atualizar/").hasRole("ADMIN");
-        authorize.requestMatchers("/api/professor/{id}").hasRole("ADMIN");
+        authorize.requestMatchers("/api/professor/atualizar/{id}").hasRole("ADMIN");
         authorize.requestMatchers("/v1/turma/listarMedias").hasRole("ADMIN");
         authorize.requestMatchers("/aluno/listarRanking").hasAnyRole("ADMIN","PROFESSOR");
         authorize.requestMatchers("/aluno/listarPorTurma").hasAnyRole("ADMIN");
