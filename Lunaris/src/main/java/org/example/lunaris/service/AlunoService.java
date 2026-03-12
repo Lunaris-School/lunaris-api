@@ -66,39 +66,41 @@ public class AlunoService {
 
 
     @Transactional
-    public AlunoResponseDTO criarAluno(AlunoRequestDTO dto){
+    public AlunoResponseDTO criarAluno(AlunoRequestDTO dto) {
+
         Aluno alunoExistente = repository.buscaPorCpf(dto.getCpf());
 
         if (alunoExistente != null){
             throw new DuplicateException("Aluno já foi cadastrado");
         }
 
-        Optional<PreCadastro> preCadastro = preCadastroRepository.findByAlunoCpf(dto.getCpf());
+        PreCadastro preCadastro = preCadastroRepository.findByAlunoCpf(dto.getCpf())
+                .orElseThrow(() -> new PreCadastroNotFoundException("Esse aluno ainda não foi pré-cadastrado"));
 
-        if(preCadastro.isEmpty()){
-            throw new PreCadastroNotFoundException("Esse aluno ainda não foi pré-cadastrado");
-        }
-        Integer turmaId = preCadastro.get().getTurmaId();
+        Integer turmaId = preCadastro.getTurmaId();
 
-        preCadastroRepository.delete(preCadastro.get());
+        Turma turma = turmaRepository.findById(turmaId)
+                .orElseThrow(() -> new NotFoundException("Turma não encontrada"));
 
         Genero genero = generoRepository.buscaPorId(dto.getGeneroId());
+
         if(genero == null){
             throw new NotFoundException("Genero não encontrado");
         }
 
-        Optional<Turma> turma = turmaRepository.findById(turmaId);
-
-        if (turma.isEmpty()){
-            throw new NotFoundException("Turma não encontrada");
-        }
-
-        Aluno aluno = fromDTO(dto);
+        Aluno aluno = new Aluno();
+        aluno.setCpf(dto.getCpf());
+        aluno.setNome(dto.getNome());
+        aluno.setEmail(dto.getEmail());
+        aluno.setSenha(passwordEncoder.encode(dto.getSenha()));
+        aluno.setMatricula(dto.getMatricula());
+        aluno.setGeneroId(dto.getGeneroId());
+        aluno.setTurma(turma);
 
         Role alunoRole = roleRepository.findByNome(RoleEnum.ALUNO.name());
-
         aluno.setRole(alunoRole);
-        aluno.setTurma(turma.get());
+
+        preCadastroRepository.delete(preCadastro);
 
         return toDTO(repository.save(aluno));
     }
