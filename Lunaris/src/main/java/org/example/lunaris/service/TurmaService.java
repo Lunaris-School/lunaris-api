@@ -131,7 +131,7 @@ public class TurmaService {
                             .filter(object -> object[0].equals(turma))
                             .map(object -> new MediaDisciplinaDTO(
                                     (String) object[1],
-                                    (double) Math.round((Double) object[2] * 100)/ 100
+                                     Math.floor((Double) object[2] * 100)/ 100
                             ))
                             .toList();
                     return new MediaTurmaDisciplinaDTO(turma,disciplinas);

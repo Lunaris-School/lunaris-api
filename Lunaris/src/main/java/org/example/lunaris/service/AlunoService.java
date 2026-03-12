@@ -140,7 +140,7 @@ public class AlunoService {
         Pageable limite = PageRequest.of(0,quantidade);
         List<Object[]> dados = repository.rankingAlunos(professorCpf,disciplinaId, limite);
         return dados.stream().map(object ->{
-            return new AlunoRankingDTO((String) object[0],(double) Math.round((Double) object[1] * 100) /100, (String) object[2], (String) object[3]);
+            return new AlunoRankingDTO((String) object[0], Math.floor((Double) object[1] * 100) /100, (String) object[2], (String) object[3]);
         }).toList();
     }
     public List<AlunoTurmaResponseDTO> listarAlunosPorTurma(Integer ano){
