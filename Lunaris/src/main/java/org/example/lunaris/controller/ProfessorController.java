@@ -22,7 +22,7 @@ public class ProfessorController implements ProfessorContract {
         this.professorService = professorService;
     }
     @Override
-    @GetMapping
+    @GetMapping("/listarTodos")
     public ResponseEntity<List<ProfessorResponseDTO>> listarTodosProfessores() {
         List<ProfessorResponseDTO> professores = professorService.listarTodosProfessores();
 
