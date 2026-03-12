@@ -88,7 +88,10 @@ public class NotasService {
 
         List<Notas> notas = notasRepository.findByBoletimId(boletim.getId());
 
-        double soma = notas.stream().mapToDouble(Notas::getValorNota).sum();
+        double soma = notas.stream()
+                .mapToDouble(n -> (n.getValorNota() + n.getValorNota2()) / 2)
+                .sum();
+
         double media = notas.isEmpty() ? 0 : soma / notas.size();
 
         boletim.setMediaFinal(media);

@@ -28,6 +28,7 @@ public class BoletimService {
 
         Boletim boletim = new Boletim();
         boletim.setAluno(aluno);
+        boletim.setTurma(aluno.getTurma());
         boletim.setMediaFinal(0.0);
 
         Boletim salvo = boletimRepository.save(boletim);
@@ -36,9 +37,9 @@ public class BoletimService {
                 salvo.getId(),
                 aluno.getCpf(),
                 aluno.getNome(),
-                aluno.getTurma().getId(),
-                aluno.getTurma().getNome(),
-                0.0,
+                salvo.getTurma().getId(),
+                salvo.getTurma().getNome(),
+                salvo.getMediaFinal(),
                 List.of());
     }
 
@@ -53,8 +54,8 @@ public class BoletimService {
                         b.getId(),
                         b.getAluno().getCpf(),
                         b.getAluno().getNome(),
-                        aluno.getTurma().getId(),
-                        aluno.getTurma().getNome(),
+                        b.getTurma().getId(),
+                        b.getTurma().getNome(),
                         b.getMediaFinal(),
                         b.getNotas().stream()
                                 .map(n -> new NotasResponseDTO(
