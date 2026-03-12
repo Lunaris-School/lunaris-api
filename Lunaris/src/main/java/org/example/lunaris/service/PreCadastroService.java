@@ -7,7 +7,8 @@ import org.example.lunaris.model.PreCadastro;
 import org.example.lunaris.repository.PreCadastroRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
+import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -33,5 +34,20 @@ public class PreCadastroService {
         PreCadastro preCadastroSalvo = preCadastroRepository.save(preCadastro);
 
         return new PreCadastroResponseDTO(preCadastroSalvo.getId(),preCadastro.getAlunoCpf(),preCadastro.getNome(),preCadastro.getTurmaId(),preCadastro.getDataAutorizacao());
+    }
+
+    public List<PreCadastroResponseDTO> listarTodos(){
+
+        List<PreCadastro> lista = preCadastroRepository.findAll();
+
+        return lista.stream()
+                .map(pre -> new PreCadastroResponseDTO(
+                        pre.getId(),
+                        pre.getAlunoCpf(),
+                        pre.getNome(),
+                        pre.getTurmaId(),
+                        pre.getDataAutorizacao()
+                ))
+                .collect(Collectors.toList());
     }
 }
