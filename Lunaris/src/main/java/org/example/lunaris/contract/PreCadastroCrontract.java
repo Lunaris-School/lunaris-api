@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.lunaris.dto.request.PreCadastroRequestDTO;
 import org.example.lunaris.dto.response.PreCadastroResponseDTO;
 import org.springframework.http.ResponseEntity;
+import java.util.List;
 @Tag(name = "Pré-Cadastro Controller", description = "Gerenciamento de pré-cadastros")
 public interface PreCadastroCrontract {
     @Operation(
@@ -36,4 +37,20 @@ public interface PreCadastroCrontract {
             )
     })
     ResponseEntity<PreCadastroResponseDTO> cadastrar(PreCadastroRequestDTO preCadastroRequest);
+
+    @Operation(
+            summary = "Listar pré cadastros",
+            description = "Lista todos os alunos pré cadastrados no sistema."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Lista retornada com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = PreCadastroResponseDTO.class)
+                    )
+            )
+    })
+    ResponseEntity<List<PreCadastroResponseDTO>> listarTodos();
 }

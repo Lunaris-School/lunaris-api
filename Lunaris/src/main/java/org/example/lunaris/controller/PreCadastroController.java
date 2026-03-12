@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pre-cadastro")
@@ -27,4 +29,10 @@ public class PreCadastroController implements PreCadastroCrontract {
         return new ResponseEntity<>(preCadastroResponse, HttpStatus.CREATED);
     }
 
+    @Override
+    @GetMapping
+    public ResponseEntity<List<PreCadastroResponseDTO>> listarTodos(){
+        List<PreCadastroResponseDTO> lista = preCadastroService.listarTodos();
+        return ResponseEntity.ok(lista);
+    }
 }
