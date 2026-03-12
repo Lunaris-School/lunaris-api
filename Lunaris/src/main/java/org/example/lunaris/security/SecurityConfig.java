@@ -114,11 +114,12 @@ public class SecurityConfig {
         authorize.requestMatchers("/api/professor/{id}").hasRole("ADMIN");
         authorize.requestMatchers("/v1/turma/listarMedias").hasRole("ADMIN");
         authorize.requestMatchers("/aluno/listarRanking").hasAnyRole("ADMIN","PROFESSOR");
+        authorize.requestMatchers("/aluno/listarPorTurma").hasAnyRole("ADMIN");
         authorize.requestMatchers("/v1/turma/listarTodas").hasAnyRole("ADMIN","PROFESSOR");
 
     }
     private void configurarRotasAluno(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){
-        authorize.requestMatchers("/aluno/**").hasAnyRole("ALUNO", "ADMIN");
+        authorize.requestMatchers("/aluno/buscar/").hasAnyRole("ALUNO", "ADMIN","PROFESSOR");
         authorize.requestMatchers("/v1/boletim/aluno/").hasRole("ALUNO");
         authorize.requestMatchers("/observacao/buscar/aluno/").hasRole("ALUNO");
 
