@@ -121,8 +121,7 @@ public class SecurityConfig {
     private void configurarRotasAluno(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){
         authorize.requestMatchers("/aluno/buscar/").hasAnyRole("ALUNO", "ADMIN","PROFESSOR");
         authorize.requestMatchers("/v1/boletim/aluno/").hasRole("ALUNO");
-        authorize.requestMatchers("/observacao/buscar/aluno/").hasRole("ALUNO");
-
+        authorize.requestMatchers("/observacao/buscar/aluno/").hasAnyRole("ALUNO", "PROFESSOR");
     }
     private void configurarRotasProfessor(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorize){
         authorize.requestMatchers("/api/professor/atualizar-parcial/").hasRole("PROFESSOR");
